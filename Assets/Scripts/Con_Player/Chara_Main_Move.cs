@@ -4,22 +4,19 @@ using UnityEngine;
 
 public class Chara_Main_Move : MonoBehaviour
 {
-    //기본 정의 구간 2021-08-09
+   
     public static Rigidbody rigid;
     static float speed = 3f;  //속도    
-    public static bool OnGround;  // 바닥에 닿은지 체크
-    public static bool isJump;// 점프중인지 체크
-    public static bool OnDash; //대쉬중인지 채크
-    private bool ForwardBlock;
-    static float fall_timer;
-    static double fall_die;
+    public static bool OnGround=false;  // 바닥에 닿은지 체크
+    public static bool isJump=false;// 점프중인지 체크
+    public static bool OnDash=false; //대쉬중인지 체크
+    private bool ForwardBlock=false; //앞이 막혀있는지 체크    
+    public static float fall_timer; //떨어지고 있는 시간 체크
+    static double fall_die;  //해당시간만큼 체공시 사망
     
-    public GameObject ThrCampos;
+    public GameObject ThrCampos;      
     public GameObject RayPoint;
-    public GameObject RayPoint2;
-    public GameObject RayPoint3;
-    public GameObject RayPoint4;
-    public GameObject RayPoint5;
+    
 
 
     private RaycastHit hit;
@@ -80,28 +77,17 @@ public class Chara_Main_Move : MonoBehaviour
 
 
 
-        //앞과 밑 물체 감지
-        DetectDown();
+        //앞 물체 감지
+    
         DetectForward();
 
 
         //점프시 속도제어 부분
         if (isJump && OnGround || ForwardBlock)
-        {
+        {           
             speed = 0f;
         }
-        /*
-        else
-        {
-            if (OnDash)
-            {
-                speed = 6f;
-            }
-            else
-            {
-                speed = 3f;
-            }
-        }*/       
+            
         //스페이스 눌러 점프
         if (Input.GetKeyUp(KeyCode.Space))
         {
@@ -114,6 +100,7 @@ public class Chara_Main_Move : MonoBehaviour
 
         //대쉬 작동과 해제
         Dash();
+        
         Revive();
 
 
@@ -122,15 +109,18 @@ public class Chara_Main_Move : MonoBehaviour
     }
 
 
-
+    
     private void Revive()
     {
         if (UI_Manager.instance.getDead())
         {
             if (Input.GetKey(KeyCode.Return))
             {
-                UI_Manager.instance.Revive();
+                UI_Manager.instance.Revive();               
                 Game_Manager.instance.Revive();
+                fall_timer = 0f;
+                rigid.velocity = Vector3.zero;
+                
             }
         }
     }
@@ -225,7 +215,7 @@ public class Chara_Main_Move : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {           
            OnGround = true;           
-           //fall_timer = 0;           
+              
         }
     }
     
@@ -251,6 +241,18 @@ public class Chara_Main_Move : MonoBehaviour
                 speed = 0;
 
             }
+            else
+            {
+                ForwardBlock = false;
+                if (OnDash)
+                {
+                    speed = 6f;
+                }
+                else
+                {
+                    speed = 3f;
+                }
+            }
 
         }
         else
@@ -267,36 +269,15 @@ public class Chara_Main_Move : MonoBehaviour
         }
         
     }
-    private void DetectDown()
-    {
-       
-        if (Physics.Raycast(RayPoint.transform.position, RayPoint.transform.up * -1.2f, out hit, 1.2f)
-            || Physics.Raycast(RayPoint2.transform.position, RayPoint2.transform.up * -1.2f, out hit, 1.2f)
-            || Physics.Raycast(RayPoint3.transform.position, RayPoint3.transform.up * -1.2f, out hit, 1.2f)
-            || Physics.Raycast(RayPoint4.transform.position, RayPoint4.transform.up * -1.2f, out hit, 1.2f)
-            || Physics.Raycast(RayPoint5.transform.position, RayPoint5.transform.up * -1.2f, out hit, 1.2f))
-        {
-
-            if (hit.transform.CompareTag("Ground"))
-            {
-                isJump = false;
-                OnGround = true;
-                fall_timer = 0f;
-            }
-        }
-        else
-        {
-            isJump = true;
-        }
-    }
-    
+      
 
  
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ플레이어의 위치 이동 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
     public static void SavePoint()
-    {       
-        rigid.transform.position = RevivePoint;
+    {
+        RevivePoint = rigid.transform.position ;
+        Game_Manager.instance.SaveRevivePoint(RevivePoint);
     }
 
 
@@ -307,7 +288,7 @@ public class Chara_Main_Move : MonoBehaviour
     //낙하데미지
     public static void fall()
     {
-        if (!OnGround)
+        if (isJump)
         {
             if (rigid.velocity.y< 0 && max_Pos < rigid.transform.position.y)
             {               

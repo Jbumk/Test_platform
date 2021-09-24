@@ -126,6 +126,7 @@ public class UI_Manager : MonoBehaviour
     {
         return isDead;
     }
+   
 
     //부활
     public void Revive()
@@ -133,6 +134,7 @@ public class UI_Manager : MonoBehaviour
 
         NowHP = MaxHP;
         NowMP = MaxMP;
+        isDead = false;
         DeadScean.SetActive(false);       
         UIUpdate();
 

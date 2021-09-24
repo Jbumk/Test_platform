@@ -36,7 +36,7 @@ public class Interec : MonoBehaviour
             GrabObjRigid.useGravity = true;
             GrabObjRigid.isKinematic = false;
             GrabObjRigid.AddForce(FirCam.transform.forward * 10f, ForceMode.Impulse);
-            Debug.Log("FirCamThrow");
+            
         }
         else
         {
@@ -48,7 +48,7 @@ public class Interec : MonoBehaviour
             GrabObjRigid.useGravity = true;
             GrabObjRigid.isKinematic = false;           
             GrabObjRigid.AddForce(ThrCam.transform.forward * 10f, ForceMode.Impulse);
-            Debug.Log("ThrCamThrow");
+            
         }
         GrabObj = null;
         GrabObjCol = null;
