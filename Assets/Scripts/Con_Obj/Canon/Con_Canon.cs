@@ -54,10 +54,4 @@ public class Con_Canon : MonoBehaviour
         }
     }
 
-    /*
-    private void Shoot()
-    {
-        
-    }
-    */
 }
