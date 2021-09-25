@@ -118,12 +118,13 @@ public class Con_Camera : MonoBehaviour
         ThrCamPos.transform.rotation = Quaternion.Euler(ThrCamRot);
         Debug.DrawRay(ThrCamOriginVec.transform.position, ThrCamOriginVec.transform.forward * ThrCam_Dist,Color.red);
 
+
+        //벽과 만났을시 앞으로 당겨옴
         if(Physics.Raycast(ThrCamOriginVec.transform.position, ThrCamOriginVec.transform.forward, out hit,ThrCam_Dist,laymask))
         {
             if (hit.transform.CompareTag("Player"))
             {
-                ThrCam.transform.position = ThrCamOriginVec.transform.position;
-                Debug.Log("Player");
+                ThrCam.transform.position = ThrCamOriginVec.transform.position;              
                 
             }
             else if(hit.transform.CompareTag("CanGrab"))
@@ -133,9 +134,7 @@ public class Con_Camera : MonoBehaviour
             }
             else
             {
-                ThrCam.transform.position = hit.point;
-                Debug.Log("else");
-                Debug.Log(hit.transform.name);
+                ThrCam.transform.position = hit.point;             
             }
         }
         else

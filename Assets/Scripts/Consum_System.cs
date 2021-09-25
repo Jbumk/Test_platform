@@ -21,7 +21,7 @@ public class Consum_System : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        Chara_Main_Move.fall();
+       
     }
 
 

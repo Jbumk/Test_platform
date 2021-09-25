@@ -102,6 +102,7 @@ public class Chara_Main_Move : MonoBehaviour
         Dash();
         
         Revive();
+        fall();
 
 
 
@@ -288,6 +289,15 @@ public class Chara_Main_Move : MonoBehaviour
     //낙하데미지
     public static void fall()
     {
+
+        if (rigid.velocity.y < -40)
+        {
+            if (!UI_Manager.instance.getDead())
+            {
+                UI_Manager.instance.alterHP(UI_Manager.instance.getMaxHP());
+            }
+        }
+
         if (isJump)
         {
             if (rigid.velocity.y< 0 && max_Pos < rigid.transform.position.y)
@@ -297,7 +307,7 @@ public class Chara_Main_Move : MonoBehaviour
             if (rigid.velocity.y < 0)
             {
                 fall_timer += Time.deltaTime;
-            }
+            }            
             if (fall_timer >= fall_die)
             {
                 UI_Manager.instance.alterHP(UI_Manager.instance.getMaxHP());
