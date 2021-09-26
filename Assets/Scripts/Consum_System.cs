@@ -50,6 +50,10 @@ public class Consum_System : MonoBehaviour
 
             }
         }
+
+
+        
+
     }
 
     //도트딜은 물리적 충돌 필요없어보여 일단 제거
@@ -75,13 +79,13 @@ public class Consum_System : MonoBehaviour
     }*/
 
     //도트딜 관련 물리처리 X
-    private void OnTriggerStay(Collider c)
+    private void OnTriggerStay(Collider col)
     {
-        if (c.gameObject.CompareTag("Pattern")) { 
+        if (col.gameObject.CompareTag("Pattern")) { 
 
             if (dot_wait <= timer)
             {
-                if (c.gameObject.name == "Pattern_1")
+                if (col.gameObject.name == "Pattern_1")
                 {
                     UI_Manager.instance.alterHP(4);
                     timer = 0;
@@ -89,6 +93,18 @@ public class Consum_System : MonoBehaviour
             }
 
         }
+
+        if (col.gameObject.CompareTag("Lava"))
+        {
+            if (dot_wait <= timer)
+            {
+                UI_Manager.instance.alterHP(20);
+                timer = 0;
+
+            }
+        }
+
+
     }
 
   
