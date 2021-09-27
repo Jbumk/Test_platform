@@ -10,6 +10,9 @@ public class Regene_Cube : MonoBehaviour
     private Collider ObjCol = null;
     Renderer BtnRender;
 
+    public bool FailCover = true;
+    private double FailStack = 0;
+
 
     private void Start()
     {
@@ -34,6 +37,7 @@ public class Regene_Cube : MonoBehaviour
                 Interec.GrabObj = null;
                 transform.position = RegenePoint.transform.position;
                 BtnRender.material.color = Color.red;
+                FailStack += 0.5;
             }
         }
         //낙하시 일정속도 도달하면 재생성->컨트롤 불가능한곳으로 떨어졌기 떄문
@@ -42,6 +46,7 @@ public class Regene_Cube : MonoBehaviour
             transform.SetParent(RegenePoint.transform);
             ObjRigid.velocity = Vector3.zero;
             transform.position = RegenePoint.transform.position;
+            FailStack++;
         }
     }
   
@@ -51,11 +56,27 @@ public class Regene_Cube : MonoBehaviour
         if (col.gameObject.CompareTag("Lava"))
         {
             transform.SetParent(RegenePoint.transform);
+            ObjRigid.velocity = Vector3.zero;
             transform.position = RegenePoint.transform.position;
+            FailStack++;
+        }
+        //5회이상 실패시 성공 보정
+        if (FailCover)
+        {
+            if (FailStack > 5)
+            {
+                if (col.gameObject.CompareTag("ThrowHelper"))
+                {
+                    ObjRigid.velocity = Vector3.zero;
+                    transform.position = Vector3.MoveTowards(transform.position, col.transform.position, Time.deltaTime * 5f);
+
+                }
+            }
         }
     }
 
-
+   
+  
 
 
 

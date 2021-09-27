@@ -14,6 +14,7 @@ TagManager:
   - Hinge
   - Interec
   - Lava
+  - ThrowHelper
   layers:
   - Default
   - TransparentFX
