@@ -5,10 +5,16 @@ using UnityEngine;
 
 public class Consum_System : MonoBehaviour
 {
-    float timer;
-    double wait;
-    double dot_wait;
-    public float maxPosition; //최대 높이값
+    private float timer;
+    private double wait;
+    private double dot_wait;
+    private float ExploTimer;
+    private double Explo_wait; //폭발 무적시간
+
+    private Rigidbody rigid;
+    private Vector3 ExploVec;
+    private Vector3 PlayerVec;
+    private Vector3 ForceVec;
     
     // Start is called before the first frame update
     void Start()
@@ -16,11 +22,15 @@ public class Consum_System : MonoBehaviour
         timer = 0;
         wait = 0.3; //1차피격후 무적시간 설정
         dot_wait = 0.35; //도트딜 주기
+        ExploTimer = 0;
+        Explo_wait = 0.8; //폭발 무적 주기
+
+        rigid = this.GetComponent<Rigidbody>();
     }
     void Update()
     {
         timer += Time.deltaTime;
-
+        ExploTimer += Time.deltaTime;
        
     }
 
@@ -49,36 +59,33 @@ public class Consum_System : MonoBehaviour
                 timer = 0;
 
             }
-        }
-
-
-        
+        }    
 
     }
 
-    //도트딜은 물리적 충돌 필요없어보여 일단 제거
-    /* 
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerEnter(Collider col)
     {
-        //피격 지속딜
-        if (collision.gameObject.CompareTag("Monster"))
+        if (col.gameObject.CompareTag("Explosion"))
         {
-            if (timer >= wait)
+            if (ExploTimer >= Explo_wait)
             {
-                Con_HP(1);
-                timer = 0;
+                UI_Manager.instance.alterHP(30);
+                ExploTimer = 0;
+                /*
+                ExploVec = col.transform.position;
+                PlayerVec = transform.position;
+                ForceVec = (PlayerVec - ExploVec).normalized;
 
+                rigid.AddForce(ForceVec * 10f, ForceMode.Impulse);
+                */
+                rigid.AddExplosionForce(600f, col.transform.position, 2.9f,3f);
             }
         }
-        
-        //이하 패턴관련 지속딜
-        if (collision.gameObject.CompareTag("Pattern"))
-        {
+    }
 
-        }
-    }*/
 
-    //도트딜 관련 물리처리 X
+
+    //도트딜 관련 물리처리 X 
     private void OnTriggerStay(Collider col)
     {
         if (col.gameObject.CompareTag("Pattern")) { 

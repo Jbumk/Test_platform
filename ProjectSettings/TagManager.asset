@@ -15,6 +15,7 @@ TagManager:
   - Interec
   - Lava
   - ThrowHelper
+  - Explosion
   layers:
   - Default
   - TransparentFX

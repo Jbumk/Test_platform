@@ -6,13 +6,12 @@ public class Explosion : MonoBehaviour
 {
     public void Explo()
     {
-        Invoke("ReturnObj", 3f);
+        Invoke("ReturnObj", 0.8f);
     }
 
     public void ReturnObj()
     {
         ExplosionPool.ReturnObj(this);
     }
-
 
 }

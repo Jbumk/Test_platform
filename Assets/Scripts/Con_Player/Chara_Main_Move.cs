@@ -322,7 +322,7 @@ public class Chara_Main_Move : MonoBehaviour
             {
                 //임시 계산식 추후 개선필요 가능성 있음
                 double dmg;
-                dmg = 2 * Mathf.Log(max_Pos - rigid.transform.position.y, 2);
+                dmg = 1.4 * Mathf.Log(max_Pos - rigid.transform.position.y, 2);
                 dmg = UI_Manager.instance.getMaxHP() / 100 * (dmg*10);
                 UI_Manager.instance.alterHP((int)dmg);
                

@@ -4757,7 +4757,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf5e0b060cbe2942ae1a8376cc7d656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPosition: 0
 --- !u!114 &463996475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20946,6 +20945,11 @@ PrefabInstance:
       propertyPath: Canon
       value: 
       objectReference: {fileID: 62340977}
+    - target: {fileID: 6256565249575141221, guid: 7544cd13d32544646a96cb47ba20ee11,
+        type: 3}
+      propertyPath: CoolTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6256565249575141227, guid: 7544cd13d32544646a96cb47ba20ee11,
         type: 3}
       propertyPath: m_TagString
