@@ -53,8 +53,7 @@ public class CanonPool : MonoBehaviour
     }
 
     public static void returnObj(CanonBall obj)
-    {
-        
+    {        
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(instance.transform);        
         instance.poolingObjQueue.Enqueue(obj);

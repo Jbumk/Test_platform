@@ -295,6 +295,7 @@ public class Chara_Main_Move : MonoBehaviour
             if (!UI_Manager.instance.getDead())
             {
                 UI_Manager.instance.alterHP(UI_Manager.instance.getMaxHP());
+                max_Pos = 0;
             }
         }
 
@@ -312,6 +313,7 @@ public class Chara_Main_Move : MonoBehaviour
             {
                 UI_Manager.instance.alterHP(UI_Manager.instance.getMaxHP());
                 fall_timer = 0;
+                max_Pos = 0;
             }            
         }
         else
