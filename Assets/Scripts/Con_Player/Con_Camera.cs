@@ -10,19 +10,19 @@ public class Con_Camera : MonoBehaviour
     public static GameObject ThrCamPos;
     public GameObject Player;
     public GameObject body;
-    float Mouse_Speed = 2f;
+    private float Mouse_Speed = 2f;
    
 
-    float ChangeTimer = 0;
-    double ChangeCoolTime = 0.5;
+    private float ChangeTimer = 0;
+    private double ChangeCoolTime = 0.5;
 
-    Vector3 FirCamRot = new Vector3(0f, 0f, 0f);
-    Vector3 ThrCamRot = new Vector3(0f, 0f, 0f);
-    Quaternion FirCamQuat;
+    private Vector3 FirCamRot = new Vector3(0f, 0f, 0f);
+    private Vector3 ThrCamRot = new Vector3(0f, 0f, 0f);
+    private Quaternion FirCamQuat;
 
 
     //Raycast에 쓰일 함수
-    RaycastHit hit;
+    private RaycastHit hit;
     private int laymask = 1 << 9;
     //Vector3 ThrCamOriginVec = new Vector3(0f, 1.5f, -2.5f); //원래 3인칭 카메라의 위치
     public GameObject ThrCamOriginVec; //원래 3인칭 카메라의 위치
@@ -45,7 +45,9 @@ public class Con_Camera : MonoBehaviour
         {
             ChangeCam();           
         }
-        
+
+        FirCam.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.5f, Player.transform.position.z);
+        ThrCamPos.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.2f, Player.transform.position.z);
 
         if (FirCamOn)
         {         
@@ -58,10 +60,9 @@ public class Con_Camera : MonoBehaviour
         else
         {
             Con_ThrCam();
-            //FirCam.transform.rotation = Player.transform.rotation;
+            
         }
-        FirCam.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.5f, Player.transform.position.z);
-        ThrCamPos.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.2f, Player.transform.position.z);
+        
 
     }
 
@@ -87,9 +88,10 @@ public class Con_Camera : MonoBehaviour
                 FirCam.SetActive(true);
                 ThrCam.SetActive(false);
                 FirCamOn = true;
-                body.SetActive(false);               
+                body.SetActive(false);
                 FirCam.transform.rotation = ThrCamPos.transform.rotation;
-            
+               
+
             }
             ChangeTimer = 0;
         }            

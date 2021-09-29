@@ -31,8 +31,7 @@ public class CanonBall : MonoBehaviour
         {
             var obj = ExplosionPool.instance.GetObj();
             obj.transform.position = transform.position;
-            obj.Explo();
-            UI_Manager.instance.alterHP(10);
+            obj.Explo();           
             TimerStart = false;
             Timer = 0;            
             ReturnObj();
@@ -40,6 +39,7 @@ public class CanonBall : MonoBehaviour
         {
             var obj = ExplosionPool.instance.GetObj();
             obj.transform.position = transform.position;
+            UI_Manager.instance.alterHP(10);
             obj.Explo();
             TimerStart = false;
             Timer = 0;

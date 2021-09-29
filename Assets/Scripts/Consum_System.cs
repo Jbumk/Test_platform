@@ -70,15 +70,14 @@ public class Consum_System : MonoBehaviour
             if (ExploTimer >= Explo_wait)
             {
                 UI_Manager.instance.alterHP(30);
-                ExploTimer = 0;
-                /*
+                ExploTimer = 0;                
                 ExploVec = col.transform.position;
                 PlayerVec = transform.position;
                 ForceVec = (PlayerVec - ExploVec).normalized;
 
                 rigid.AddForce(ForceVec * 10f, ForceMode.Impulse);
-                */
-                rigid.AddExplosionForce(600f, col.transform.position, 2.9f,3f);
+                
+               // rigid.AddExplosionForce(600f, col.transform.position, 2.9f,3f);
             }
         }
     }
