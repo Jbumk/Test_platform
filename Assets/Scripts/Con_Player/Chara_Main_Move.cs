@@ -10,13 +10,11 @@ public class Chara_Main_Move : MonoBehaviour
     public static bool OnGround=false;  // 바닥에 닿은지 체크
     public static bool isJump=false;// 점프중인지 체크
     public static bool OnDash=false; //대쉬중인지 체크
-    private bool ForwardBlock=false; //앞이 막혀있는지 체크    
-    public static float fall_timer; //떨어지고 있는 시간 체크
-    static double fall_die;  //해당시간만큼 체공시 사망
-    
+    public static bool ForwardBlock=false; //앞이 막혀있는지 체크    
+  
+
     public GameObject ThrCampos;      
-    public GameObject RayPoint;
-    
+    public GameObject RayPoint;    
 
 
     private RaycastHit hit;
@@ -24,15 +22,14 @@ public class Chara_Main_Move : MonoBehaviour
     
     private static Vector3 RevivePoint = new Vector3(0, 3, 0); //부활할 첫번째 지점
   
-    // Start is called before the first frame update
+ 
     void Start()
     {       
         rigid = GetComponent<Rigidbody>();
-        fall_timer = 0;
-        fall_die = 5;
+       
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         if (Con_Camera.FirCamOn)
@@ -77,9 +74,8 @@ public class Chara_Main_Move : MonoBehaviour
 
 
 
-        //앞 물체 감지
+        //앞 물체 감지    
     
-        DetectForward();
 
 
         //점프시 속도제어 부분
@@ -87,7 +83,19 @@ public class Chara_Main_Move : MonoBehaviour
         {           
             speed = 0f;
         }
-            
+        else
+        {
+            ForwardBlock = false;
+            if (OnDash)
+            {
+                speed = 6f;
+            }
+            else
+            {
+                speed = 3f;
+            }
+        }
+
         //스페이스 눌러 점프
         if (Input.GetKeyUp(KeyCode.Space))
         {
@@ -99,13 +107,8 @@ public class Chara_Main_Move : MonoBehaviour
        
 
         //대쉬 작동과 해제
-        Dash();
-        
-        Revive();
-        fall();
-
-
-
+        Dash();        
+        Revive();      
     
     }
 
@@ -118,10 +121,8 @@ public class Chara_Main_Move : MonoBehaviour
             if (Input.GetKey(KeyCode.Return))
             {
                 UI_Manager.instance.Revive();               
-                Game_Manager.instance.Revive();
-                fall_timer = 0f;
-                rigid.velocity = Vector3.zero;
-                
+                Game_Manager.instance.Revive();               
+                rigid.velocity = Vector3.zero;                
             }
         }
     }
@@ -208,17 +209,8 @@ public class Chara_Main_Move : MonoBehaviour
         {
             OnGround = true;                  
         }
-    }
-    
-    
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {           
-           OnGround = true;           
-              
-        }
-    }
+    }    
+
     
     private void OnCollisionExit(Collision collision)
     {
@@ -228,49 +220,7 @@ public class Chara_Main_Move : MonoBehaviour
             OnGround = false;
 
         }
-    }
-    // 근처 오브젝트 탐지
-    private void DetectForward()
-    {
-        //RayCast통해 앞에 물체 감지
-        if (Physics.Raycast(RayPoint.transform.position, RayPoint.transform.forward * 0.35f, out hit, 0.35f))
-        {
-            
-            if (hit.transform.CompareTag("Ground"))
-            {
-                ForwardBlock = true;
-                speed = 0;
-
-            }
-            else
-            {
-                ForwardBlock = false;
-                if (OnDash)
-                {
-                    speed = 6f;
-                }
-                else
-                {
-                    speed = 3f;
-                }
-            }
-
-        }
-        else
-        {
-            ForwardBlock = false;
-            if (OnDash)
-            {
-                speed = 6f;
-            }
-            else
-            {
-                speed = 3f;
-            }
-        }
-        
-    }
-      
+    }  
 
  
 
@@ -280,61 +230,7 @@ public class Chara_Main_Move : MonoBehaviour
         RevivePoint = rigid.transform.position ;
         Game_Manager.instance.SaveRevivePoint(RevivePoint);
     }
-
-
-    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ플레이어 낙하값 측정
-    public static float max_Pos;
-
-
-    //낙하데미지
-    public static void fall()
-    {
-
-        if (rigid.velocity.y < -40)
-        {
-            if (!UI_Manager.instance.getDead())
-            {
-                UI_Manager.instance.alterHP(UI_Manager.instance.getMaxHP());
-                max_Pos = 0;
-            }
-        }
-
-        if (isJump)
-        {
-            if (rigid.velocity.y< 0 && max_Pos < rigid.transform.position.y)
-            {               
-                max_Pos = rigid.transform.position.y;
-            }
-            if (rigid.velocity.y < 0)
-            {
-                fall_timer += Time.deltaTime;
-            }            
-            if (fall_timer >= fall_die)
-            {
-                UI_Manager.instance.alterHP(UI_Manager.instance.getMaxHP());
-                fall_timer = 0;
-                max_Pos = 0;
-            }            
-        }
-        else
-        {         
-            if (max_Pos - rigid.transform.position.y > 5)
-            {
-                //임시 계산식 추후 개선필요 가능성 있음
-                double dmg;
-                dmg = 1.4 * Mathf.Log(max_Pos - rigid.transform.position.y, 2);
-                dmg = UI_Manager.instance.getMaxHP() / 100 * (dmg*10);
-                UI_Manager.instance.alterHP((int)dmg);
-               
-                dmg = 0;               
-                max_Pos = 0;
-            }
-            else
-            {
-               max_Pos = rigid.transform.position.y;
-            }          
-        }
-    }
+       
 
    
 

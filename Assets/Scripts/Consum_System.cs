@@ -15,8 +15,12 @@ public class Consum_System : MonoBehaviour
     private Vector3 ExploVec;
     private Vector3 PlayerVec;
     private Vector3 ForceVec;
+
+    public static float max_Pos;
+    private float fall_timer;
+    private double fall_die = 5;
     
-    // Start is called before the first frame update
+   
     void Start()
     {
         timer = 0;
@@ -31,6 +35,8 @@ public class Consum_System : MonoBehaviour
     {
         timer += Time.deltaTime;
         ExploTimer += Time.deltaTime;
+
+        fall();
        
     }
 
@@ -75,9 +81,8 @@ public class Consum_System : MonoBehaviour
                 PlayerVec = transform.position;
                 ForceVec = (PlayerVec - ExploVec).normalized;
 
-                rigid.AddForce(ForceVec * 10f, ForceMode.Impulse);
-                
-               // rigid.AddExplosionForce(600f, col.transform.position, 2.9f,3f);
+                rigid.AddForce(ForceVec * 10f, ForceMode.Impulse);                
+               
             }
         }
     }
@@ -113,5 +118,57 @@ public class Consum_System : MonoBehaviour
 
     }
 
-  
+
+    private void fall()
+    {
+
+        if (rigid.velocity.y < -40)
+        {
+            if (!UI_Manager.instance.getDead())
+            {
+                UI_Manager.instance.alterHP(UI_Manager.instance.getMaxHP());
+                max_Pos = 0;
+                fall_timer = 0;
+            }
+        }
+
+        if (Chara_Main_Move.isJump)
+        {
+            if (rigid.velocity.y < 0 && max_Pos < rigid.transform.position.y)
+            {
+                max_Pos = rigid.transform.position.y;
+            }
+            if (rigid.velocity.y < 0)
+            {
+                fall_timer += Time.deltaTime;
+            }
+            if (fall_timer >= fall_die)
+            {
+                UI_Manager.instance.alterHP(UI_Manager.instance.getMaxHP());
+                fall_timer = 0;
+                max_Pos = 0;
+            }
+        }
+        else
+        {
+            if (max_Pos - rigid.transform.position.y > 5)
+            {
+                //임시 계산식 추후 개선필요 가능성 있음
+                double dmg;
+                dmg = 1.4 * Mathf.Log(max_Pos - rigid.transform.position.y, 2);
+                dmg = UI_Manager.instance.getMaxHP() / 100 * (dmg * 10);
+                UI_Manager.instance.alterHP((int)dmg);
+
+                dmg = 0;
+                max_Pos = 0;
+                fall_timer = 0;
+            }
+            else
+            {
+                max_Pos = rigid.transform.position.y;
+                fall_timer = 0;
+            }
+        }
+    }
+
 }
