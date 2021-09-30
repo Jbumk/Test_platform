@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HandLight : MonoBehaviour
 {
+    public static bool haveLight= false;
     public Light handligh;
     public GameObject FirCam;
     public GameObject ThrCam;
@@ -17,39 +18,42 @@ public class HandLight : MonoBehaviour
 
     private void Update()
     {
-        Timer += Time.deltaTime;
-        if (Timer >= CoolTIme)
+        if (haveLight)
         {
-            if (Input.GetKey(KeyCode.G))
+            Timer += Time.deltaTime;
+            if (Timer >= CoolTIme)
             {
-                if (isOn)
+                if (Input.GetKey(KeyCode.G))
                 {
-                    handligh.intensity = 0;
-                    isOn = false;
-                    Timer = 0;
-                }
-                else
-                {
-                    handligh.intensity = 15;
-                    isOn = true;
-                    Timer = 0;
+                    if (isOn)
+                    {
+                        handligh.intensity = 0;
+                        isOn = false;
+                        Timer = 0;
+                    }
+                    else
+                    {
+                        handligh.intensity = 15;
+                        isOn = true;
+                        Timer = 0;
+                    }
                 }
             }
-        }
 
-        if (Con_Camera.FirCamOn)
-        {
-            LightVec =FirCam.transform.rotation;
-            LightVec.y = 0;
-            LightVec.z = 0;
-            transform.localRotation = LightVec;
-        }
-        else
-        {
-            LightVec = ThrCam.transform.rotation;
-            LightVec.y = 0;
-            LightVec.z = 0;
-            transform.localRotation = LightVec;
+            if (Con_Camera.FirCamOn)
+            {
+                LightVec = FirCam.transform.rotation;
+                LightVec.y = 0;
+                LightVec.z = 0;
+                transform.localRotation = LightVec;
+            }
+            else
+            {
+                LightVec = ThrCam.transform.rotation;
+                LightVec.y = 0;
+                LightVec.z = 0;
+                transform.localRotation = LightVec;
+            }
         }
     }
 }

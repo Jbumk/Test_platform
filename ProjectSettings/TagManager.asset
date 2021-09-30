@@ -16,6 +16,7 @@ TagManager:
   - Lava
   - ThrowHelper
   - Explosion
+  - CamExcept
   layers:
   - Default
   - TransparentFX
