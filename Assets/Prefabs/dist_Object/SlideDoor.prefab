@@ -247,8 +247,6 @@ MonoBehaviour:
   Btn: {fileID: 0}
   BlockPoint: {fileID: 8413211414812908639}
   OpenPoint: {fileID: 1860458918581065500}
-  BlockDoor: 1
-  doStop: 1
 --- !u!1 &1153218489496944589
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,9 +922,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8537873547196952052}
   - component: {fileID: 8775765640499815368}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: OpenPoint
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -939,7 +937,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860458918581065500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08, y: -2.5, z: 2.5}
+  m_LocalPosition: {x: -0.08, y: -2.521, z: 2.5}
   m_LocalScale: {x: 0.3, y: 4, z: 4.5}
   m_Children: []
   m_Father: {fileID: 1153218489025715037}
@@ -968,9 +966,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1537344284159444441}
   - component: {fileID: 1213385394165831493}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BlockPoint
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

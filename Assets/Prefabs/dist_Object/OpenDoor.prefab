@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 490242276518202440}
   - component: {fileID: 490242276518202446}
   - component: {fileID: 490242276518202447}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Door_Open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -593,7 +593,7 @@ GameObject:
   - component: {fileID: 490242277375014804}
   - component: {fileID: 490242277375014810}
   - component: {fileID: 490242277375014811}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Door_Close
   m_TagString: Untagged
   m_Icon: {fileID: 0}

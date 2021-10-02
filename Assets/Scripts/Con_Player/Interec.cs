@@ -18,6 +18,15 @@ public class Interec : MonoBehaviour
 
     float InterecTimer = 0;
     double InterecCoolTime = 0.5;
+
+    //사이에 방해물체 있는지 감지
+    public GameObject RayPoint;//레이저 발사할 위치
+    private RaycastHit hit;
+    Vector3 RayVec;  
+    int laymask = ~((1 << 9));
+
+
+    
     private void Update()
     {
         InterecTimer += Time.deltaTime;
@@ -63,21 +72,33 @@ public class Interec : MonoBehaviour
         //물건 집기
         if (col.gameObject.CompareTag("CanGrab") && InterecTimer >= InterecCoolTime)
         {
-            if (GrabObj == null)
-            {
-                if (Input.GetKey(KeyCode.E))
-                {
-                    GrabObj = col.gameObject;
-                    GrabObj.transform.SetParent(transform, true);
-                    GrabObj.transform.position = transform.position;
-                    GrabObjRigid = GrabObj.GetComponent<Rigidbody>();
-                    GrabObjCol = GrabObj.GetComponent<Collider>();
-                    GrabObjCol.isTrigger = true;
-                    GrabObjRigid.useGravity = false;
-                    GrabObjRigid.isKinematic = true;
-                    InterecTimer = 0;
-                }
+            RayVec = (col.transform.position - RayPoint.transform.position).normalized;
+          
+            if (Physics.Raycast(RayPoint.transform.position, RayVec,out hit,Vector3.Distance(RayPoint.transform.position,col.transform.position),laymask))
+            {            
+                if (!hit.collider.gameObject.CompareTag("Ground"))
+                {                      
+                    if (GrabObj == null)
+                    {
+                        if (Input.GetKey(KeyCode.E))
+                        {
+                            GrabObj = col.gameObject;
+                            GrabObj.transform.SetParent(transform, true);
+                            GrabObj.transform.position = transform.position;
+                            GrabObjRigid = GrabObj.GetComponent<Rigidbody>();
+                            GrabObjCol = GrabObj.GetComponent<Collider>();
+                            GrabObjCol.isTrigger = true;
+                            GrabObjRigid.useGravity = false;
+                            GrabObjRigid.isKinematic = true;
+                            InterecTimer = 0;
+                        }
+                    }
+                 }
+
+
             }
+           
+
         }
 
         //물건 놓기

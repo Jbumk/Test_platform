@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HandLight : MonoBehaviour
 {
-    public static bool haveLight= false;
+    public static bool haveLight= true;
     public Light handligh;
     public GameObject FirCam;
     public GameObject ThrCam;
@@ -33,7 +33,7 @@ public class HandLight : MonoBehaviour
                     }
                     else
                     {
-                        handligh.intensity = 15;
+                        handligh.intensity = 5;
                         isOn = true;
                         Timer = 0;
                     }
