@@ -12,9 +12,10 @@ public class Consum_System : MonoBehaviour
     private double Explo_wait; //폭발 무적시간
 
     private Rigidbody rigid;
-    private Vector3 ExploVec;
+    private Vector3 PatternVec;
     private Vector3 PlayerVec;
     private Vector3 ForceVec;
+    
 
     public static float max_Pos;
     private float fall_timer;
@@ -56,11 +57,20 @@ public class Consum_System : MonoBehaviour
             }
         }
 
-        //이하 패턴관련 피격 딜
+        //이하 패턴관련 피격 딜 
         if (collision.gameObject.CompareTag("Pattern"))
         {
             if (timer >= wait)
             {
+                if (collision.gameObject.name =="Hammer")
+                {
+                    Debug.Log(collision.transform.position+ " / " + transform.position);
+                    PlayerVec = transform.position;
+                    PatternVec = collision.transform.position;
+                    PlayerVec.y = 0;
+                    PatternVec.y = 0;
+                    rigid.AddForce((PlayerVec - PatternVec).normalized * 10f, ForceMode.Impulse);
+                } 
                 UI_Manager.instance.alterHP(10);
                 timer = 0;
 
@@ -77,9 +87,9 @@ public class Consum_System : MonoBehaviour
             {
                 UI_Manager.instance.alterHP(30);
                 ExploTimer = 0;                
-                ExploVec = col.transform.position;
+                PatternVec = col.transform.position;
                 PlayerVec = transform.position;
-                ForceVec = (PlayerVec - ExploVec).normalized;
+                ForceVec = (PlayerVec - PatternVec).normalized;
 
                 rigid.AddForce(ForceVec * 10f, ForceMode.Impulse);                
                

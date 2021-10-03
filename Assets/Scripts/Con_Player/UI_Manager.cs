@@ -51,17 +51,20 @@ public class UI_Manager : MonoBehaviour
     //HP값에 변동 있을때 호출
     public int alterHP(int altValue)
     {
-        NowHP -= altValue;
-        if (altValue > 0)
+        if (NowHP > 0)
         {
-            HitScean.SetActive(true);
-            Invoke("HitSceanOff", 0.5f);
-        }
-        UIUpdate();
-        if (NowHP <= 0)
-        {
-            isDead = true;
-            Dead();
+            NowHP -= altValue;
+            if (altValue > 0)
+            {
+                HitScean.SetActive(true);
+                Invoke("HitSceanOff", 0.5f);
+            }
+            UIUpdate();
+            if (NowHP <= 0)
+            {
+                isDead = true;
+                Dead();
+            }
         }
         return NowHP;
 
