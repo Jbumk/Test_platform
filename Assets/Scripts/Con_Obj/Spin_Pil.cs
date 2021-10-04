@@ -34,16 +34,23 @@ public class Spin_Pil : MonoBehaviour
     {
         if (btn == null)
         {
+           
+           
             Toc += Time.deltaTime * SpinSpeed;
-            Pillar.gameObject.transform.rotation = Quaternion.Euler(0, Toc, 0);
+            Pillar.gameObject.transform.localRotation = Quaternion.Euler(0, Toc, 0);
+            
+           
         }
         else
         {
             if (Btnrender.material.color == Color.green)
             {
-                //StartCoroutine(Test_Spin(SpinToc, SpinSpeed));
+
+               
+                
                 Toc += Time.deltaTime * SpinSpeed;
-                Pillar.gameObject.transform.rotation = Quaternion.Euler(0, Toc, 0);
+                Pillar.gameObject.transform.localRotation = Quaternion.Euler(0, Toc, 0);
+                
 
             }
         }

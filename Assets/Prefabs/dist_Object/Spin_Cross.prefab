@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3303387797535962377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7638215371833719814}
+  m_Layer: 0
+  m_Name: SpinFrame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7638215371833719814
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3303387797535962377}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.13999999, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5433851860764926931}
+  - {fileID: 8425796993478063277}
+  - {fileID: 4072827042071163164}
+  m_Father: {fileID: 1785303943475730175}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4788503052810270699
 GameObject:
   m_ObjectHideFlags: 0
@@ -26,12 +59,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4788503052810270699}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.25, z: 0}
-  m_LocalScale: {x: 6, y: 0.15, z: 0.15}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.091666654, z: 0}
+  m_LocalScale: {x: 8, y: 0.15, z: 0.15}
   m_Children: []
-  m_Father: {fileID: 1785303943475730175}
-  m_RootOrder: 2
+  m_Father: {fileID: 7638215371833719814}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &3077769058075875956
 MeshFilter:
@@ -121,12 +154,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5553182041640357178}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.14, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 1.2, z: 0.4}
   m_Children: []
-  m_Father: {fileID: 1785303943475730175}
-  m_RootOrder: 0
+  m_Father: {fileID: 7638215371833719814}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8788685631815174557
 MeshFilter:
@@ -217,11 +250,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6311503036982067955}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.25, z: 0}
-  m_LocalScale: {x: 6, y: 0.15, z: 0.15}
+  m_LocalPosition: {x: 0, y: -0.091666654, z: 0}
+  m_LocalScale: {x: 8, y: 0.15, z: 0.15}
   m_Children: []
-  m_Father: {fileID: 1785303943475730175}
-  m_RootOrder: 1
+  m_Father: {fileID: 7638215371833719814}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2467813685370776534
 MeshFilter:
@@ -294,9 +327,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1785303943475730175}
-  - component: {fileID: 7567073436821002694}
+  - component: {fileID: 7146292867027488465}
   m_Layer: 0
-  m_Name: Test_Cross
+  m_Name: Spin_Cross
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -313,13 +346,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4072827042071163164}
-  - {fileID: 5433851860764926931}
-  - {fileID: 8425796993478063277}
+  - {fileID: 7638215371833719814}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7567073436821002694
+--- !u!114 &7146292867027488465
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -331,6 +362,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e9030026975f34d9a840d1fc79a783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pillar: {fileID: 8317868844670960753}
+  Pillar: {fileID: 3303387797535962377}
   btn: {fileID: 0}
   SpinSpeed: 30

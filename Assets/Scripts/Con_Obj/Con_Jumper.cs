@@ -8,6 +8,7 @@ public class Con_Jumper : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
+            Consum_System.fall_timer = 0;
             col.rigidbody.AddForce(Vector3.up * 13f, ForceMode.Impulse);
         }
     }

@@ -18,7 +18,7 @@ public class Consum_System : MonoBehaviour
     
 
     public static float max_Pos;
-    private float fall_timer;
+    public static float fall_timer;
     private double fall_die = 5;
     
    
