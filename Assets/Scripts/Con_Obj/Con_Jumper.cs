@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class Con_Jumper : MonoBehaviour
 {
+    Vector3 ForceVec;
+
+    private void Start()
+    {
+        ForceVec = transform.up;
+    }
+    
+
     private void OnCollisionEnter(Collision col)
     {
+        
         if (col.gameObject.CompareTag("Player"))
         {
             Consum_System.fall_timer = 0;
-            col.rigidbody.AddForce(Vector3.up * 13f, ForceMode.Impulse);
+            col.rigidbody.AddForce(ForceVec * 13f, ForceMode.Impulse);
         }
     }
 }
