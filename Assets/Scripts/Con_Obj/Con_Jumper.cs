@@ -5,6 +5,7 @@ using UnityEngine;
 public class Con_Jumper : MonoBehaviour
 {
     Vector3 ForceVec;
+    public float JumpPower = 13f;
 
     private void Start()
     {
@@ -18,7 +19,7 @@ public class Con_Jumper : MonoBehaviour
         if (col.gameObject.CompareTag("Player"))
         {
             Consum_System.fall_timer = 0;
-            col.rigidbody.AddForce(ForceVec * 13f, ForceMode.Impulse);
+            col.rigidbody.AddForce(ForceVec * JumpPower, ForceMode.Impulse);
         }
     }
 }

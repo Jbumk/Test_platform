@@ -10,9 +10,12 @@ public class Chara_Attack : MonoBehaviour
     //static double Con_MPMaxTime;
     private bool TimeStop = false;
 
+    //시간되돌리기 관련 함수
+    public Vector3[] BackPoint = new Vector3[7];
+    public GameObject BackPointPrefab;
     private bool CanTimeBack = false;
     Vector3 BackVec;
-    public Vector3[] BackPoint = new Vector3[7];
+    
     private int VecStack = 0;
 
     private void Start()
@@ -23,21 +26,25 @@ public class Chara_Attack : MonoBehaviour
    
     void Update()
     {
-        
+
 
         //좌클릭시 기본공격
-        if (Input.GetMouseButtonDown(0) && Interec.GrabObj==null && CanTimeBack)
+        if (CanTimeBack)
         {
-            /*
-             var skill = atkpool.GetObj();
-             var pos = Camera.main.transform.position;
-             pos += Player.transform.forward * 3;           
-             skill.Skill(pos);         
-             */
-            if (UI_Manager.instance.getNowMP() >= 10)
+            BackPointPrefab.transform.position = BackPoint[VecStack];
+            if (Input.GetMouseButtonDown(0) && Interec.GrabObj == null)
             {
-                Player.transform.position = BackPoint[VecStack];
-                UI_Manager.instance.alterMP(10);
+                /*
+                 var skill = atkpool.GetObj();
+                 var pos = Camera.main.transform.position;
+                 pos += Player.transform.forward * 3;           
+                 skill.Skill(pos);         
+                 */
+                if (UI_Manager.instance.getNowMP() >= 10)
+                {
+                    Player.transform.position = BackPoint[VecStack];
+                    UI_Manager.instance.alterMP(10);
+                }
             }
         }
 
@@ -74,18 +81,14 @@ public class Chara_Attack : MonoBehaviour
     public IEnumerator TimeBack()
     {
         while (true)
-        {
-            if (VecStack <= 6)
+        {            
+            BackPoint[VecStack] = Player.transform.position;        
+            VecStack++;
+            if (VecStack > 6)
             {
-                BackPoint[VecStack] = Player.transform.position;
-            }
-            else
-            {                
-                VecStack = 0;
-                BackPoint[VecStack] = Player.transform.position;
+                VecStack = 0;                
                 CanTimeBack = true;
             }
-            VecStack++;
             yield return new WaitForSeconds(0.5f);
         }
     }
