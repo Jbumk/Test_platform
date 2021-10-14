@@ -32,83 +32,101 @@ public class Chara_Main_Move : MonoBehaviour
     
     void Update()
     {
-        if (Con_Camera.FirCamOn)
+        if (!Menu.onMenu)
         {
-     
-            //W눌러서 전방이동
-            if (Input.GetKey(KeyCode.W))
+            if (Con_Camera.FirCamOn)
             {
-                MoveForward();
-            }
+
+                //W눌러서 전방이동
+                if (Input.GetKey(KeyCode.W))
+                {
+                    MoveForward();
+                }
 
 
-            //S눌러서 후방이동
-            if (Input.GetKey(KeyCode.S))
-            {
-                MoveBack();
-            }
+                //S눌러서 후방이동
+                if (Input.GetKey(KeyCode.S))
+                {
+                    MoveBack();
+                }
 
-            //A눌러서 좌측 이동
-            if (Input.GetKey(KeyCode.A))
-            {
-                MoveLeft();
-            }
-
-
-            //D눌러서 우측 이동
-            if (Input.GetKey(KeyCode.D))
-            {
-                MoveRight();
-            }
+                //A눌러서 좌측 이동
+                if (Input.GetKey(KeyCode.A))
+                {
+                    MoveLeft();
+                }
 
 
-           
-        }
-        else
-        {
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
-            {
-                ThrLook();              
-            }
-        } 
+                //D눌러서 우측 이동
+                if (Input.GetKey(KeyCode.D))
+                {
+                    MoveRight();
+                }
 
 
 
-        //앞 물체 감지    
-    
-
-
-        //점프시 속도제어 부분
-        if (isJump && OnGround || ForwardBlock)
-        {           
-            speed = 0f;
-        }
-        else
-        {
-            ForwardBlock = false;
-            if (OnDash)
-            {
-                speed = 6f;
             }
             else
             {
-                speed = 3f;
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+                {
+                    ThrLook();
+                }
             }
-        }
 
-        //스페이스 눌러 점프
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            if (!isJump)
+
+
+            //앞 물체 감지    
+
+
+
+            //점프시 속도제어 부분
+            if (isJump && OnGround || ForwardBlock)
             {
-                Jump();
+                speed = 0f;
             }
-        }
-       
+            else
+            {
+                ForwardBlock = false;
+                if (OnDash)
+                {
+                    speed = 6f;
+                }
+                else
+                {
+                    speed = 3f;
+                }
+            }
 
-        //대쉬 작동과 해제
-        Dash();        
-        Revive();      
+            //스페이스 눌러 점프
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                if (!isJump)
+                {
+                    Jump();
+                }
+            }
+
+            //R키를 눌러 위치 이전 체크포인트로
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Revive();
+            }
+
+            //죽었을시 엔터키 눌러 부활
+            if (UI_Manager.instance.getDead())
+            {
+                if (Input.GetKey(KeyCode.Return))
+                {
+                    Revive();
+                }
+            }
+
+
+            //대쉬 작동과 해제
+            Dash();
+            
+        }
     
     }
 
@@ -116,15 +134,11 @@ public class Chara_Main_Move : MonoBehaviour
     
     private void Revive()
     {
-        if (UI_Manager.instance.getDead())
-        {
-            if (Input.GetKey(KeyCode.Return))
-            {
-                UI_Manager.instance.Revive();               
-                Game_Manager.instance.Revive();               
-                rigid.velocity = Vector3.zero;                
-            }
-        }
+        UI_Manager.instance.Revive();               
+        Game_Manager.instance.Revive();
+        Consum_System.max_Pos = transform.position.y;
+        rigid.velocity = Vector3.zero;        
+     
     }
 
 

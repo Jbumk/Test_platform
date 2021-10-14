@@ -27,49 +27,51 @@ public class Chara_Attack : MonoBehaviour
     void Update()
     {
 
-
-        //좌클릭시 기본공격
-        if (CanTimeBack)
+        if (!Menu.onMenu)
         {
-            BackPointPrefab.transform.position = BackPoint[VecStack];
-            if (Input.GetMouseButtonDown(0) && Interec.GrabObj == null)
+            //좌클릭시 기본공격
+            if (CanTimeBack)
             {
-                /*
-                 var skill = atkpool.GetObj();
-                 var pos = Camera.main.transform.position;
-                 pos += Player.transform.forward * 3;           
-                 skill.Skill(pos);         
-                 */
-                if (UI_Manager.instance.getNowMP() >= 10)
+                BackPointPrefab.transform.position = BackPoint[VecStack];
+                if (Input.GetMouseButtonDown(0) && Interec.GrabObj == null)
                 {
-                    Player.transform.position = BackPoint[VecStack];
-                    UI_Manager.instance.alterMP(10);
+                    /*
+                     var skill = atkpool.GetObj();
+                     var pos = Camera.main.transform.position;
+                     pos += Player.transform.forward * 3;           
+                     skill.Skill(pos);         
+                     */
+                    if (UI_Manager.instance.getNowMP() >= 10)
+                    {
+                        Player.transform.position = BackPoint[VecStack];
+                        UI_Manager.instance.alterMP(10);
+                    }
                 }
             }
-        }
 
 
-        //우클릭시 스킬 사용
-       
+            //우클릭시 스킬 사용
 
-        if (Input.GetMouseButtonDown(1) && !TimeStop)
-        {
-            if (UI_Manager.instance.getNowMP() >= 10)
+
+            if (Input.GetMouseButtonDown(1) && !TimeStop)
             {
-                TimeStop = true;
-                Time.timeScale = 0.0f;
-                Time.fixedDeltaTime = 0.02f * Time.timeScale;
-                UI_Manager.instance.alterMP(10);             
+                if (UI_Manager.instance.getNowMP() >= 10)
+                {
+                    TimeStop = true;
+                    Time.timeScale = 0.0f;
+                    Time.fixedDeltaTime = 0.02f * Time.timeScale;
+                    UI_Manager.instance.alterMP(10);
+
+                }
 
             }
-            
-        }
-        else if (Input.GetMouseButtonDown(1) && TimeStop)
-        {
-            TimeStop = false;
-            Time.timeScale = 1f;
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            else if (Input.GetMouseButtonDown(1) && TimeStop)
+            {
+                TimeStop = false;
+                Time.timeScale = 1f;
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
+            }
         }
     
 

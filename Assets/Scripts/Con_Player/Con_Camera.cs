@@ -41,26 +41,29 @@ public class Con_Camera : MonoBehaviour
     void Update()
     {
         ChangeTimer += Time.deltaTime;
-        if (ChangeTimer >= ChangeCoolTime)
+        if (!Menu.onMenu)
         {
-            ChangeCam();           
-        }
+            if (ChangeTimer >= ChangeCoolTime)
+            {
+                ChangeCam();
+            }
 
-        FirCam.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.5f, Player.transform.position.z);
-        ThrCamPos.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.2f, Player.transform.position.z);
+            FirCam.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.5f, Player.transform.position.z);
+            ThrCamPos.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.2f, Player.transform.position.z);
 
-        if (FirCamOn)
-        {         
-            Con_FirCam();         
-            FirCamQuat = FirCam.transform.rotation;
-            FirCamQuat.x = 0f;
-            FirCamQuat.z = 0f;
-            Player.transform.rotation = FirCamQuat;
-        }
-        else
-        {
-            Con_ThrCam();
-            
+            if (FirCamOn)
+            {
+                Con_FirCam();
+                FirCamQuat = FirCam.transform.rotation;
+                FirCamQuat.x = 0f;
+                FirCamQuat.z = 0f;
+                Player.transform.rotation = FirCamQuat;
+            }
+            else
+            {
+                Con_ThrCam();
+
+            }
         }
         
 
