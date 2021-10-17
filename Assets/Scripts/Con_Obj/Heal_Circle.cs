@@ -5,10 +5,16 @@ using UnityEngine;
 public class Heal_Circle : MonoBehaviour
 {
     Renderer Circle_Color;
+    public GameObject Switch;
+    private Renderer render;
     // Start is called before the first frame update
     void Start()
     {
-        Circle_Color = this.gameObject.GetComponent<Renderer>();
+        Circle_Color = GetComponent<Renderer>();
+        if (Switch != null)
+        {
+            render = Switch.GetComponent<Renderer>();
+        }
     }
 
     private void OnTriggerEnter(Collider col)
@@ -22,6 +28,10 @@ public class Heal_Circle : MonoBehaviour
                 UI_Manager.instance.alterMP(-UI_Manager.instance.getMaxMP());
                 Game_Manager.instance.SaveRevivePoint(this.transform.position);
                 Circle_Color.material.color = Color.red;
+                if (Switch != null)
+                {
+                    render.material.color = Color.red;
+                }
             }
         }
         

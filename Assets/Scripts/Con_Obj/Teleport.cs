@@ -28,7 +28,18 @@ public class Teleport : MonoBehaviour
                 rigid.AddForce(NextPoint.transform.forward * Power, ForceMode.Impulse);
             }
 
-            
+
+        }
+        else if(col.gameObject.CompareTag("CanGrab"))
+        {
+            if (NextPoint != null)
+            {
+                rigid = col.GetComponent<Rigidbody>();              
+                Power = Mathf.Abs(rigid.velocity.x) + Mathf.Abs(rigid.velocity.y) + Mathf.Abs(rigid.velocity.z);               
+                rigid.velocity = Vector3.zero;
+                col.transform.position = NextPoint.transform.position + NextPoint.transform.forward * 2f;
+                rigid.AddForce(NextPoint.transform.forward * Power, ForceMode.Impulse);
+            }
         }
         
         

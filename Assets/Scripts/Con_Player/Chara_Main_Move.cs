@@ -110,7 +110,7 @@ public class Chara_Main_Move : MonoBehaviour
             //R키를 눌러 위치 이전 체크포인트로
             if (Input.GetKeyDown(KeyCode.R))
             {
-                Revive();
+               Revive();
             }
 
             //죽었을시 엔터키 눌러 부활
@@ -132,7 +132,7 @@ public class Chara_Main_Move : MonoBehaviour
 
 
     
-    private void Revive()
+    public void Revive()
     {
         UI_Manager.instance.Revive();               
         Game_Manager.instance.Revive();
