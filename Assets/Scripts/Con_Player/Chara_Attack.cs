@@ -75,10 +75,7 @@ public class Chara_Attack : MonoBehaviour
         }
     
 
-    }
-
-
-    
+    }   
     
     public IEnumerator TimeBack()
     {
@@ -92,6 +89,17 @@ public class Chara_Attack : MonoBehaviour
                 CanTimeBack = true;
             }
             yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.name == "Circle")
+        {
+            for(int i = 0; i < BackPoint.Length; i++)
+            {
+                BackPoint[i] = col.transform.position;
+            }
         }
     }
 

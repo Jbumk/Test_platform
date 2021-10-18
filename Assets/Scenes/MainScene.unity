@@ -6585,6 +6585,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1039511187}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &207747400
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207747398}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &209149322 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7095757923994183069, guid: ed8afaa6277e2224aa0bcffb7a48d0e8,
@@ -12037,9 +12050,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 713587345}
     m_Modifications:
+    - target: {fileID: 3278599462549026964, guid: 5544c87a9fb06c340b095bfbeb2f4e5e,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3278599462549026967, guid: 5544c87a9fb06c340b095bfbeb2f4e5e,
         type: 3}
       propertyPath: canLock
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3278599462549026968, guid: 5544c87a9fb06c340b095bfbeb2f4e5e,
+        type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3278599462549026969, guid: 5544c87a9fb06c340b095bfbeb2f4e5e,
@@ -56605,18 +56628,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 463996476}
-        m_TargetAssemblyTypeName: Chara_Main_Move, Assembly-CSharp
-        m_MethodName: Revive
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2006571711}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: ResumeGame
@@ -56632,6 +56643,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2006571713}
         m_TargetAssemblyTypeName: ResetManager, Assembly-CSharp
         m_MethodName: DoReset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 463996476}
+        m_TargetAssemblyTypeName: Chara_Main_Move, Assembly-CSharp
+        m_MethodName: Revive
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -64770,15 +64793,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4453038053005094, guid: 196405dd91626fd4c8aa9160f83204a2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 47.9
+      value: 23.13
       objectReference: {fileID: 0}
     - target: {fileID: 4453038053005094, guid: 196405dd91626fd4c8aa9160f83204a2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.41
+      value: 6.43
       objectReference: {fileID: 0}
     - target: {fileID: 4453038053005094, guid: 196405dd91626fd4c8aa9160f83204a2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.08
+      value: -59.13
       objectReference: {fileID: 0}
     - target: {fileID: 4453038053005094, guid: 196405dd91626fd4c8aa9160f83204a2, type: 3}
       propertyPath: m_LocalRotation.x

@@ -11,6 +11,9 @@ public class ResetStage : MonoBehaviour
     private Queue<Vector3> ObjVec = new Queue<Vector3>();
     private Queue<Quaternion> ObjQuat = new Queue<Quaternion>();
 
+    float Timer = 0;
+    double DeadEnd = 0.5;
+
 
 
     private void Awake()    
@@ -18,18 +21,20 @@ public class ResetStage : MonoBehaviour
         for (int j = 0; j < GOstack.Length; j++)
         {
             ObjVec.Enqueue(GOstack[j].transform.position);            
-            ObjQuat.Enqueue(GOstack[j].transform.rotation);
-            
-           
+            ObjQuat.Enqueue(GOstack[j].transform.rotation);           
         }
     }
 
     private void Update()
     {
-        if (ResetManager.ObjReset)
+        if (OnPlayer)
         {
-            ResetObj();            
+            if (ResetManager.ObjReset)
+            {
+                ResetObj();
+            }
         }
+        
       
     }
 
@@ -47,10 +52,10 @@ public class ResetStage : MonoBehaviour
     private void ResetObj()
     {
         for (int j = 0; j < GOstack.Length; j++)
-        {
+        {            
             GOstack[j].transform.position = ObjVec.Dequeue();          
             GOstack[j].transform.rotation = ObjQuat.Dequeue();
-            
+          
         }
       
         for (int j = 0; j < GOstack.Length; j++)
@@ -70,12 +75,21 @@ public class ResetStage : MonoBehaviour
         {
             OnPlayer = true;
         }
+
         if (OnPlayer)
         {
             if (ResetManager.BtnReset)
             {
+                Timer += Time.deltaTime;
+                if(Timer>= DeadEnd)
+                {
+                    i = 1;
+                    Timer = 0;
+                    ResetManager.BtnReset = false;
+                }
                 if (col.gameObject.name == ("Switch" + i))
                 {
+
                     rend = col.GetComponent<Renderer>();
                     if (rend != null)
                     {
@@ -83,13 +97,19 @@ public class ResetStage : MonoBehaviour
                         {
                             rend.material.color = Color.red;
                         }
+                        Debug.Log(i+"번");
+                        Timer = 0;
                         i++;
-                    }
+                    }   
+                    /*
                     else
                     {
-                        ResetManager.BtnReset = false;
+                        Debug.Log("버튼초기화끝");
                         i = 1;
-                    }
+                        ResetManager.BtnReset = false;
+                        
+                    }*/
+                    
                 }
             }
         }

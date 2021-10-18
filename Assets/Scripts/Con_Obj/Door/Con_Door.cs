@@ -22,11 +22,11 @@ public class Con_Door : MonoBehaviour
     {
         if (Btn_Color.material.color == Color.green)
         {
-            transform.position = Vector3.MoveTowards(transform.position, OpenPoint.transform.position, 1f*Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, OpenPoint.transform.position, 3f*Time.deltaTime);
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, BlockPoint.transform.position, 1f*Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, BlockPoint.transform.position, 5f*Time.deltaTime);
         }
      
     }
