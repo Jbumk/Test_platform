@@ -12,11 +12,11 @@ TagManager:
   - Door_Up
   - CanGrab
   - Hinge
-  - Interec
   - Lava
   - ThrowHelper
   - Explosion
-  - CamExcept
+  - TPElse
+  - ElseObj
   layers:
   - Default
   - TransparentFX

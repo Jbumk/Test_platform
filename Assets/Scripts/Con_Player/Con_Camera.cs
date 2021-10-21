@@ -136,12 +136,7 @@ public class Con_Camera : MonoBehaviour
             {
                 ThrCam.transform.position = ThrCamOriginVec.transform.position;
                 Debug.Log("GrabThing");
-            }
-            else if (hit.transform.CompareTag("CamExcept"))
-            {
-                ThrCam.transform.position = ThrCamOriginVec.transform.position;
-                Debug.Log("GrabThing");
-            }
+            }           
             else
             {
                 ThrCam.transform.position = hit.point;             

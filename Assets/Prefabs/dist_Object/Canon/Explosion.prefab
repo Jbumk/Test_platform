@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3547092251830476671}
   m_Layer: 0
   m_Name: Point Light
-  m_TagString: Untagged
+  m_TagString: ElseObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 4646522990122801705}
   m_Layer: 0
   m_Name: Explosion
-  m_TagString: Untagged
+  m_TagString: ElseObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 7712656369061497000}
   m_Layer: 0
   m_Name: Shockwave
-  m_TagString: Untagged
+  m_TagString: ElseObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5030,7 +5030,7 @@ GameObject:
   - component: {fileID: 7712656369061497002}
   m_Layer: 0
   m_Name: BaseSmoke
-  m_TagString: Untagged
+  m_TagString: ElseObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

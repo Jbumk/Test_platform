@@ -86,6 +86,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Heal_Circle.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Teleport.cs" />
+    <Compile Include="Assets\Scripts\Con_Player\ResetManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Canon\CanonBall.cs" />
@@ -128,7 +129,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Regene_Cube.cs" />
-    <Compile Include="Assets\Scripts\Con_Player\ResetManager.cs" />
+    <Compile Include="Assets\Scripts\Clear3_4.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
