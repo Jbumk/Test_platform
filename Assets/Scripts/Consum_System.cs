@@ -63,8 +63,7 @@ public class Consum_System : MonoBehaviour
             if (timer >= wait)
             {
                 if (collision.gameObject.name =="Hammer")
-                {
-                    Debug.Log(collision.transform.position+ " / " + transform.position);
+                {                  
                     PlayerVec = transform.position;
                     PatternVec = collision.transform.position;
                     PlayerVec.y = 0;
@@ -75,7 +74,15 @@ public class Consum_System : MonoBehaviour
                 timer = 0;
 
             }
-        }    
+        }
+        if (collision.gameObject.CompareTag("Roof"))
+        {
+            if (timer >= wait)
+            {
+                UI_Manager.instance.alterHP(34);
+                timer = 0;
+            }
+        }
 
     }
 

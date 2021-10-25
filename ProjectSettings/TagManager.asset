@@ -17,6 +17,7 @@ TagManager:
   - Explosion
   - TPElse
   - ElseObj
+  - Roof
   layers:
   - Default
   - TransparentFX

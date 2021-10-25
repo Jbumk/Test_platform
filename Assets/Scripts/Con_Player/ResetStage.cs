@@ -32,7 +32,7 @@ public class ResetStage : MonoBehaviour
             if (ResetManager.ObjReset)
             {
                 ResetObj();
-            }
+            }            
         }
         
       
