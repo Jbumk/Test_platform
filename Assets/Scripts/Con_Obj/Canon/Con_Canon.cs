@@ -13,9 +13,11 @@ public class Con_Canon : MonoBehaviour
     private Renderer BtnRender;
     private float Timer = 0f;
 
+    private AudioSource ShootSound;
 
     void Start()
     {
+        ShootSound = GetComponent<AudioSource>();
         if (Button != null)
         {
             BtnRender = Button.gameObject.GetComponent<Renderer>();
@@ -32,7 +34,8 @@ public class Con_Canon : MonoBehaviour
             {
                 Timer = 0;
                 var Bullet = CanonPool.GetObj();
-               
+
+                ShootSound.Play();
                 Bullet.CanonShoot(Canon.transform.position, Canon.transform.forward, Power);
 
             }
@@ -45,7 +48,7 @@ public class Con_Canon : MonoBehaviour
                 {
                     Timer = 0;
                     var Bullet = CanonPool.GetObj();
-                   
+                    ShootSound.Play();
                     Bullet.CanonShoot(Canon.transform.position, Canon.transform.forward, Power);
 
                 }

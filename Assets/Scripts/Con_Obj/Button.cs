@@ -8,10 +8,12 @@ public class Button : MonoBehaviour
     public bool canLock=true; //true = 누르면 상태변경 false = 누르고 있을때만 활성화    
     public double OffTime=0; //켜졌다 꺼지는 시간 0으로 설정하면 비활성화
     float Timer = 0;
+    private AudioSource BtnSound;
     // Start is called before the first frame update
     void Start()
     {
-        BtnColor = this.GetComponent<Renderer>();
+        BtnColor = GetComponent<Renderer>();
+        BtnSound = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -41,8 +43,10 @@ public class Button : MonoBehaviour
         {
             if (col.gameObject.CompareTag("Player"))
             {
+                BtnSound.Play();
                 if (BtnColor.material.color != Color.red)
                 {
+                    
                     BtnColor.material.color = Color.red;
                 }
                 else
@@ -52,6 +56,7 @@ public class Button : MonoBehaviour
             }
             else if(col.gameObject.CompareTag("CanGrab"))
             {
+                BtnSound.Play();
                 if (BtnColor.material.color != Color.red)
                 {
                     BtnColor.material.color = Color.red;
@@ -63,6 +68,7 @@ public class Button : MonoBehaviour
             }
             else if (col.gameObject.CompareTag("ElseObj"))
             {
+                BtnSound.Play();
                 if (BtnColor.material.color != Color.red)
                 {
                     BtnColor.material.color = Color.red;
@@ -79,17 +85,21 @@ public class Button : MonoBehaviour
     {
         if (!canLock)
         {
-            if (col.gameObject.CompareTag("Player"))
+            if (BtnColor.material.color == Color.red)
             {
-                BtnColor.material.color = Color.green;
-            }
-            else if (col.gameObject.CompareTag("CanGrab"))
-            {
-                BtnColor.material.color = Color.green;
-            }
-            else if (col.gameObject.CompareTag("ElseObj"))
-            {
-                BtnColor.material.color = Color.red;
+                if (col.gameObject.CompareTag("Player"))
+                {                   
+                    BtnColor.material.color = Color.green;
+                }
+                else if (col.gameObject.CompareTag("CanGrab"))
+                {                    
+                    BtnColor.material.color = Color.green;
+                }
+                else if (col.gameObject.CompareTag("ElseObj"))
+                {                   
+                    BtnColor.material.color = Color.green;
+                }
+                BtnSound.Play();
             }
         }
     }
@@ -98,16 +108,21 @@ public class Button : MonoBehaviour
     {
         if (!canLock)
         {
-            if (col.gameObject.CompareTag("Player"))
+            if (BtnColor.material.color == Color.green)
             {
-                BtnColor.material.color = Color.red;
-            }
-            else if (col.gameObject.CompareTag("CanGrab"))
-            {
-                BtnColor.material.color = Color.red;
-            }else if (col.gameObject.CompareTag("ElseObj"))
-            {
-                BtnColor.material.color = Color.red;
+                if (col.gameObject.CompareTag("Player"))
+                {                
+                    BtnColor.material.color = Color.red;
+                }
+                else if (col.gameObject.CompareTag("CanGrab"))
+                {                   
+                    BtnColor.material.color = Color.red;
+                }
+                else if (col.gameObject.CompareTag("ElseObj"))
+                {                    
+                    BtnColor.material.color = Color.red;
+                }
+                BtnSound.Play();
             }
         }
     }

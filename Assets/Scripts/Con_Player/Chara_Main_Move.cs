@@ -21,11 +21,15 @@ public class Chara_Main_Move : MonoBehaviour
     
     
     private static Vector3 RevivePoint = new Vector3(0, 3, 0); //부활할 첫번째 지점
-  
- 
+
+    public AudioSource JumpSound;
+
+
+   
     void Start()
     {       
         rigid = GetComponent<Rigidbody>();
+      
        
     }
 
@@ -36,31 +40,34 @@ public class Chara_Main_Move : MonoBehaviour
         {
             if (Con_Camera.FirCamOn)
             {
-
-                //W눌러서 전방이동
-                if (Input.GetKey(KeyCode.W))
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
                 {
-                    MoveForward();
-                }
+                   
+                    //W눌러서 전방이동
+                    if (Input.GetKey(KeyCode.W))
+                    {
+                        MoveForward();
+                    }
 
 
-                //S눌러서 후방이동
-                if (Input.GetKey(KeyCode.S))
-                {
-                    MoveBack();
-                }
+                    //S눌러서 후방이동
+                    if (Input.GetKey(KeyCode.S))
+                    {
+                        MoveBack();
+                    }
 
-                //A눌러서 좌측 이동
-                if (Input.GetKey(KeyCode.A))
-                {
-                    MoveLeft();
-                }
+                    //A눌러서 좌측 이동
+                    if (Input.GetKey(KeyCode.A))
+                    {
+                        MoveLeft();
+                    }
 
 
-                //D눌러서 우측 이동
-                if (Input.GetKey(KeyCode.D))
-                {
-                    MoveRight();
+                    //D눌러서 우측 이동
+                    if (Input.GetKey(KeyCode.D))
+                    {
+                        MoveRight();
+                    }
                 }
 
 
@@ -166,6 +173,7 @@ public class Chara_Main_Move : MonoBehaviour
     {
         if (OnGround && !isJump)
         {
+            JumpSound.Play();
             OnGround = false;
             isJump = true;
             rigid.AddForce(Vector3.up * 6f, ForceMode.Impulse);

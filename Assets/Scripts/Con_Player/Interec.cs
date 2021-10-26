@@ -26,6 +26,9 @@ public class Interec : MonoBehaviour
     int laymask = ~((1 << 9));
 
 
+    public AudioSource GrabSound;
+    public AudioSource ThrowSound;
+
     
     private void Update()
     {
@@ -40,6 +43,7 @@ public class Interec : MonoBehaviour
     {
         if (Con_Camera.FirCamOn)
         {
+            ThrowSound.Play();
             GrabObj.transform.SetParent(null);
             GrabObjCol.isTrigger = false;
             GrabObjRigid.useGravity = true;
@@ -49,6 +53,7 @@ public class Interec : MonoBehaviour
         }
         else
         {
+            ThrowSound.Play();
             ThrCamVec = ThrCam.transform.forward;
             ThrCamVec.y = 0f;
             Player.transform.forward = ThrCamVec;
@@ -82,6 +87,7 @@ public class Interec : MonoBehaviour
                     {
                         if (Input.GetKey(KeyCode.E))
                         {
+                            GrabSound.Play();
                             GrabObj = col.gameObject;
                             GrabObj.transform.SetParent(transform, true);
                             GrabObj.transform.position = transform.position;
@@ -106,6 +112,7 @@ public class Interec : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E))
             {
+                GrabSound.Play();
                 GrabObj.transform.SetParent(null);
                 GrabObjCol.isTrigger = false;
                 GrabObjRigid.useGravity = true;

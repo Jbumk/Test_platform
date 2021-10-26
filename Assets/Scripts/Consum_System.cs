@@ -74,7 +74,11 @@ public class Consum_System : MonoBehaviour
                 timer = 0;
 
             }
-        }
+        }      
+
+    }
+    private void OnCollisionStay(Collision collision)
+    {
         if (collision.gameObject.CompareTag("Roof"))
         {
             if (timer >= wait)
@@ -83,7 +87,6 @@ public class Consum_System : MonoBehaviour
                 timer = 0;
             }
         }
-
     }
 
     private void OnTriggerEnter(Collider col)

@@ -18,6 +18,8 @@ public class Chara_Attack : MonoBehaviour
     
     private int VecStack = 0;
 
+   
+
     private void Start()
     {
         StartCoroutine(TimeBack());

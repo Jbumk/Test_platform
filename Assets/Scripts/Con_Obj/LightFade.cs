@@ -11,19 +11,27 @@ public class LightFade : MonoBehaviour
     private double CoolTime = 0.025;
 
     public float value = 0.01f;
+    bool isOn = false;
 
+    private AudioSource SirenSound;
 
     private void Start()
     {
         Rend = Btn.GetComponent<Renderer>();
+        SirenSound = GetComponent<AudioSource>();
     }
 
-    private void Update()
+    private void Update()   
     {
 
         Timer += Time.deltaTime;
         if (Rend.material.color == Color.green)
         {
+            if (!isOn)
+            {
+                SirenSound.Play();
+                isOn = true;
+            }
             for (int i = 0; i < Lights.Length; i++)
             {
                 Lights[i].color = Color.red;
@@ -46,8 +54,14 @@ public class LightFade : MonoBehaviour
                 }
                 Timer = 0;
             }
-        }else
+           
+        } else
         {
+            if (isOn)
+            {
+                isOn = false;
+                SirenSound.Stop();
+            }
             for (int i = 0; i < Lights.Length; i++)
             {
                 Lights[i].color = Color.white;
