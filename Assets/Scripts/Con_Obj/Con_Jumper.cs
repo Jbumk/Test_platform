@@ -22,6 +22,7 @@ public class Con_Jumper : MonoBehaviour
         if (col.gameObject.CompareTag("Player"))
         {
             JumpSound.Play();
+            Consum_System.max_Pos = col.transform.position.y;
             Consum_System.fall_timer = 0;
             col.rigidbody.AddForce(ForceVec * JumpPower, ForceMode.Impulse);
         }

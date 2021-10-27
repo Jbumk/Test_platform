@@ -10,6 +10,9 @@ public class Con_MovingPlat : MonoBehaviour
     public GameObject Button;
     private Renderer BtnRender;
 
+    public bool Loof = true;
+    private Con_MovingPlat ConMovPlat;
+
     public float speed = 5f;//이동속도
     int i=1; //반복문용 변수
 
@@ -19,6 +22,8 @@ public class Con_MovingPlat : MonoBehaviour
         {
             BtnRender = Button.gameObject.GetComponent<Renderer>();
         }
+        ConMovPlat = GetComponent<Con_MovingPlat>();
+
     }
     private void Update()
     {
@@ -29,7 +34,14 @@ public class Con_MovingPlat : MonoBehaviour
                 i++;
                 if (i == MovePoints.Length)
                 {
-                    i = 0;
+                    if (Loof)
+                    {
+                        i = 0;
+                    }
+                    else
+                    {
+                        ConMovPlat.enabled = false;
+                    }
                 }
             }
             else
@@ -46,7 +58,14 @@ public class Con_MovingPlat : MonoBehaviour
                     i++;
                     if (i == MovePoints.Length)
                     {
-                        i = 0;
+                        if (Loof)
+                        {
+                            i = 0;
+                        }
+                        else
+                        {
+                            ConMovPlat.enabled = false;
+                        }
                     }
                 }
                 else
