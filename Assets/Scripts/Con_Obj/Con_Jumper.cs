@@ -15,10 +15,10 @@ public class Con_Jumper : MonoBehaviour
         JumpSound = GetComponent<AudioSource>();
     }
   
-
+    
     private void OnCollisionEnter(Collision col)
     {
-        
+
         if (col.gameObject.CompareTag("Player"))
         {
             JumpSound.Play();
@@ -27,4 +27,8 @@ public class Con_Jumper : MonoBehaviour
             col.rigidbody.AddForce(ForceVec * JumpPower, ForceMode.Impulse);
         }
     }
+
+    
+
+
 }

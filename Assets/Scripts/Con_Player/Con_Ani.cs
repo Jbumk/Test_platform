@@ -27,9 +27,7 @@ public class Con_Ani : MonoBehaviour
         Timer += Time.deltaTime;
 
         horzmove = Input.GetAxis("Horizontal");
-        vertmove = Input.GetAxisRaw("Vertical");
-        Debug.Log(horzmove);
-        Debug.Log(vertmove);
+        vertmove = Input.GetAxisRaw("Vertical");       
         if (horzmove == 0 && vertmove == 0)
         {
             WalkSound.Stop();

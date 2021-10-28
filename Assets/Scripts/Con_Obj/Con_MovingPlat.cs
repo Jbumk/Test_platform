@@ -64,7 +64,7 @@ public class Con_MovingPlat : MonoBehaviour
                         }
                         else
                         {
-                            ConMovPlat.enabled = false;
+                            BtnRender.material.color = Color.red;
                         }
                     }
                 }

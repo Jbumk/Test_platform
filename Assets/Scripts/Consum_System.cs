@@ -129,7 +129,7 @@ public class Consum_System : MonoBehaviour
         {
             if (dot_wait <= timer)
             {
-                UI_Manager.instance.alterHP(20);
+                UI_Manager.instance.alterHP(35);
                 timer = 0;
 
             }
