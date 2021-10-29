@@ -17,6 +17,16 @@ public class UnActiveDoor : MonoBehaviour
                 BackLight.gameObject.SetActive(true);
             }
         }
+
+        if (ResetManager.ObjReset)
+        {
+            Door.SetActive(true);
+            if (BackLight != null)
+            {
+                BackLight.gameObject.SetActive(false);
+            }
+        }
     }
+    
 
 }

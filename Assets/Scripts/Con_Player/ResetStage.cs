@@ -96,8 +96,7 @@ public class ResetStage : MonoBehaviour
                         if (rend.material.color != Color.red)
                         {
                             rend.material.color = Color.red;
-                        }
-                        Debug.Log(i+"번");
+                        }                      
                         Timer = 0;
                         i++;
                     }   

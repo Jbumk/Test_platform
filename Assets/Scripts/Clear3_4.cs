@@ -16,6 +16,15 @@ public class Clear3_4 : MonoBehaviour
         Rend = Btn.GetComponent<Renderer>();
     }
 
+    public void Update()
+    {
+        if (ResetManager.ObjReset)
+        {
+            Debug.Log("발동");
+            Window.gameObject.SetActive(false);
+            BtnGeneric.OffTime = 5;
+        }
+    }
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.CompareTag("Player"))
@@ -24,5 +33,6 @@ public class Clear3_4 : MonoBehaviour
             Rend.material.color = Color.green;
             Window.gameObject.SetActive(true);
         }
+        
     }
 }
