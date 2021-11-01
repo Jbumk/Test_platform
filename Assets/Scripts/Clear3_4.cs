@@ -19,8 +19,7 @@ public class Clear3_4 : MonoBehaviour
     public void Update()
     {
         if (ResetManager.ObjReset)
-        {
-            Debug.Log("발동");
+        {          
             Window.gameObject.SetActive(false);
             BtnGeneric.OffTime = 5;
         }

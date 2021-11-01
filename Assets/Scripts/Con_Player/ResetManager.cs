@@ -15,8 +15,7 @@ public class ResetManager : MonoBehaviour
     private void Update()
     {
         if (UI_Manager.instance.getDead())
-        {
-            Debug.Log("발동2");
+        {          
             ObjReset = true;
             BtnReset = true;
         }

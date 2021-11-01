@@ -37,6 +37,8 @@ public class Interec : MonoBehaviour
         {
             ThrowObj();
         }
+
+
     }
 
     private void ThrowObj()
@@ -110,6 +112,7 @@ public class Interec : MonoBehaviour
         //물건 놓기
         if (GrabObj != null && InterecTimer >= InterecCoolTime)
         {
+          
             if (Input.GetKey(KeyCode.E))
             {
                 GrabSound.Play();
@@ -122,6 +125,8 @@ public class Interec : MonoBehaviour
                 GrabObjRigid = null;
                 InterecTimer = 0;
             }
+
+            
         }
 
 
@@ -137,5 +142,6 @@ public class Interec : MonoBehaviour
         }
     }
 
+    
    
 }

@@ -64,15 +64,18 @@
     <Compile Include="Assets\Scripts\Con_Player\DetectForward.cs" />
     <Compile Include="Assets\Scripts\Con_Player\Con_Ani.cs" />
     <Compile Include="Assets\Scripts\Con_Player\Con_Camera.cs" />
+    <Compile Include="Assets\Scripts\Con_Obj\ObjectOnTrigger.cs" />
     <Compile Include="Assets\Scripts\Con_Player\atk.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Canon\CanonPool.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Door\Con_Door.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\Scripts\MSG_Manager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Canon\Explosion.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+    <Compile Include="Assets\Scripts\Set_MSGZone.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Canon\Con_Canon.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Button.cs" />
     <Compile Include="Assets\Scripts\Con_Player\HandLight.cs" />
@@ -133,7 +136,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Regene_Cube.cs" />
-    <Compile Include="Assets\Scripts\Con_Obj\ObjectOnTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
