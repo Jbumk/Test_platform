@@ -17,16 +17,28 @@ public class Menu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)&& !onMenu)
+        if (!UI_Manager.instance.getDead())
         {
-            MenuScn.gameObject.SetActive(true);
-            onMenu = true;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            Time.timeScale = 0.0f;
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            if (Input.GetKeyDown(KeyCode.Escape) && !onMenu)
+            {
+                MenuScn.gameObject.SetActive(true);
+                onMenu = true;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                Time.timeScale = 0.0f;
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape) && onMenu)
+            {
+                MenuScn.gameObject.SetActive(false);
+                onMenu = false;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Time.timeScale = 1f;
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            }
         }
-        else if(Input.GetKeyDown(KeyCode.Escape) && onMenu)
+        else
         {
             MenuScn.gameObject.SetActive(false);
             onMenu = false;
@@ -35,6 +47,7 @@ public class Menu : MonoBehaviour
             Time.timeScale = 1f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
+
     }
 
     public void ResumeGame()

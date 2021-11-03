@@ -8,9 +8,12 @@ public class GetHandLight : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        HandLight.haveLight = true;
-        UselessLight.gameObject.SetActive(false);
-        gameObject.SetActive(false);
+        if (col.gameObject.CompareTag("Player"))
+        {
+            HandLight.haveLight = true;
+            UselessLight.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+        }
 
     }
 }
