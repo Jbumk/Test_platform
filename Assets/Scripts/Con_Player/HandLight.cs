@@ -33,7 +33,7 @@ public class HandLight : MonoBehaviour
                     }
                     else
                     {
-                        handligh.intensity = 5;
+                        handligh.intensity = 3;
                         isOn = true;
                         Timer = 0;
                     }

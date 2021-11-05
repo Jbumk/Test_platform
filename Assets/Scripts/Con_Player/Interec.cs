@@ -25,18 +25,26 @@ public class Interec : MonoBehaviour
     Vector3 RayVec;  
     int laymask = ~((1 << 9));
 
+    Vector3 GrabScale;
+
 
     public AudioSource GrabSound;
     public AudioSource ThrowSound;
 
     
+
     private void Update()
     {
         InterecTimer += Time.deltaTime;
-        if (Input.GetMouseButtonDown(0) && GrabObj != null)
+        if (GrabObj != null)
         {
-            ThrowObj();
+            GrabObjRigid.velocity = Vector3.zero;
+            if (Input.GetMouseButtonDown(0))
+            {
+                ThrowObj();
+            }
         }
+      
 
 
     }
@@ -47,9 +55,8 @@ public class Interec : MonoBehaviour
         {
             ThrowSound.Play();
             GrabObj.transform.SetParent(null);
-            GrabObjCol.isTrigger = false;
+            GrabObj.transform.localScale = GrabScale;    
             GrabObjRigid.useGravity = true;
-            GrabObjRigid.isKinematic = false;
             GrabObjRigid.AddForce(FirCam.transform.forward * 10f, ForceMode.Impulse);
             
         }
@@ -60,9 +67,8 @@ public class Interec : MonoBehaviour
             ThrCamVec.y = 0f;
             Player.transform.forward = ThrCamVec;
             GrabObj.transform.SetParent(null);
-            GrabObjCol.isTrigger = false;
-            GrabObjRigid.useGravity = true;
-            GrabObjRigid.isKinematic = false;           
+            GrabObj.transform.localScale = GrabScale;         
+            GrabObjRigid.useGravity = true;          
             GrabObjRigid.AddForce(ThrCam.transform.forward * 10f, ForceMode.Impulse);
             
         }
@@ -85,21 +91,18 @@ public class Interec : MonoBehaviour
             {            
                 if (!hit.collider.gameObject.CompareTag("Ground"))
                 {                      
-                    if (GrabObj == null)
-                    {
-                        if (Input.GetKey(KeyCode.E))
-                        {
-                            GrabSound.Play();
-                            GrabObj = col.gameObject;
-                            GrabObj.transform.SetParent(transform, true);
-                            GrabObj.transform.position = transform.position;
-                            GrabObjRigid = GrabObj.GetComponent<Rigidbody>();
-                            GrabObjCol = GrabObj.GetComponent<Collider>();
-                            GrabObjCol.isTrigger = true;
-                            GrabObjRigid.useGravity = false;
-                            GrabObjRigid.isKinematic = true;
-                            InterecTimer = 0;
-                        }
+                    if (GrabObj == null && Input.GetKey(KeyCode.E)&& !Chara_Main_Move.OnDash)
+                    {                        
+                          GrabScale = col.transform.localScale;
+                          GrabSound.Play();
+                          GrabObj = col.gameObject;
+                          GrabObj.transform.SetParent(transform);
+                          GrabObj.transform.position = transform.position;
+                          GrabObjRigid = GrabObj.GetComponent<Rigidbody>();
+                          GrabObjCol = GrabObj.GetComponent<Collider>();                         
+                          GrabObjRigid.useGravity = false;                       
+                          InterecTimer = 0;
+                        
                     }
                  }
 
@@ -117,9 +120,8 @@ public class Interec : MonoBehaviour
             {
                 GrabSound.Play();
                 GrabObj.transform.SetParent(null);
-                GrabObjCol.isTrigger = false;
-                GrabObjRigid.useGravity = true;
-                GrabObjRigid.isKinematic = false;
+                GrabObj.transform.localScale = GrabScale;        
+                GrabObjRigid.useGravity = true;       
                 GrabObj = null;
                 GrabObjCol = null;
                 GrabObjRigid = null;
@@ -142,6 +144,21 @@ public class Interec : MonoBehaviour
         }
     }
 
-    
-   
+    private void OnTriggerExit(Collider col)
+    {
+        if (GrabObj != null && col.gameObject.CompareTag("CanGrab"))
+        {
+            GrabSound.Play();
+            GrabObj.transform.SetParent(null);
+            GrabObj.transform.localScale = GrabScale;     
+            GrabObjRigid.useGravity = true;
+            GrabObj = null;
+            GrabObjCol = null;
+            GrabObjRigid = null;
+            InterecTimer = 0;
+        }
+        
+    }
+
+
 }
