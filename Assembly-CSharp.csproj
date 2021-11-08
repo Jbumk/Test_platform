@@ -74,14 +74,17 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Canon\Explosion.cs" />
+    <Compile Include="Assets\Scripts\DeadZone.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\Set_MSGZone.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Canon\Con_Canon.cs" />
+    <Compile Include="Assets\Scripts\Con_Mon\Crab_Act.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Button.cs" />
     <Compile Include="Assets\Scripts\Con_Player\HandLight.cs" />
     <Compile Include="Assets\Scripts\Con_Player\DetectDown.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\LB3D\CrabMonster\Scripts\Rikayon.cs" />
     <Compile Include="Assets\Scripts\Con_Player\GetHandLight.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Prefabs\Player&apos;s\Rin New 3d - Anime Style\Demo\Scripts\UIManager.cs" />
@@ -136,7 +139,8 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Regene_Cube.cs" />
-    <Compile Include="Assets\Scripts\DeadZone.cs" />
+    <Compile Include="Assets\LB3D\CrabMonster\LB3DGameManager.cs" />
+    <Compile Include="Assets\Scripts\Con_Mon\Crab_Dect.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
@@ -145,6 +149,7 @@
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
      <None Include="Assets\Prefabs\Player&apos;s\Rin New 3d - Anime Style\ReadMe!.txt" />
+     <None Include="Assets\LB3D\CrabMonster\DOCUMENTATION.txt" />
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />

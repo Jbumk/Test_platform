@@ -93,15 +93,20 @@ public class Interec : MonoBehaviour
                 {                      
                     if (GrabObj == null && Input.GetKey(KeyCode.E)&& !Chara_Main_Move.OnDash)
                     {                        
-                          GrabScale = col.transform.localScale;
-                          GrabSound.Play();
-                          GrabObj = col.gameObject;
-                          GrabObj.transform.SetParent(transform);
-                          GrabObj.transform.position = transform.position;
-                          GrabObjRigid = GrabObj.GetComponent<Rigidbody>();
-                          GrabObjCol = GrabObj.GetComponent<Collider>();                         
-                          GrabObjRigid.useGravity = false;                       
-                          InterecTimer = 0;
+                        GrabScale = col.transform.localScale;
+                        GrabSound.Play();
+                        GrabObj = col.gameObject;                        
+                        GrabObjRigid = GrabObj.GetComponent<Rigidbody>();
+                        GrabObjCol = GrabObj.GetComponent<Collider>();
+                        GrabObjRigid.velocity = Vector3.zero;
+                        GrabObjRigid.angularVelocity = Vector3.zero;
+                        GrabObj.transform.SetParent(transform);
+                       // GrabObj.transform.localScale = GrabScale;
+                        GrabObj.transform.position = transform.position;
+                        
+                        
+                        GrabObjRigid.useGravity = false;                       
+                        InterecTimer = 0;
                         
                     }
                  }
