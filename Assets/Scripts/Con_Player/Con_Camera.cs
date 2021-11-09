@@ -10,6 +10,9 @@ public class Con_Camera : MonoBehaviour
     public static GameObject ThrCamPos;
     public GameObject Player;
     public GameObject body;
+    public GameObject RayPoint;
+
+    private Vector3 Dir;
     private float Mouse_Speed = 2f;
    
 
@@ -40,6 +43,7 @@ public class Con_Camera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Dir = ThrCamOriginVec.transform.position - RayPoint.transform.position;
         ChangeTimer += Time.deltaTime;
         if (!Menu.onMenu)
         {
@@ -121,26 +125,28 @@ public class Con_Camera : MonoBehaviour
         ThrCamRot.y += Input.GetAxis("Mouse X") * Mouse_Speed;
 
         ThrCamPos.transform.rotation = Quaternion.Euler(ThrCamRot);
-        Debug.DrawRay(ThrCamOriginVec.transform.position, ThrCamOriginVec.transform.forward * ThrCam_Dist,Color.red);
+        //Debug.DrawRay(ThrCamOriginVec.transform.position, ThrCamOriginVec.transform.forward * ThrCam_Dist,Color.red);
 
 
         //벽과 만났을시 앞으로 당겨옴
-        if(Physics.Raycast(ThrCamOriginVec.transform.position, ThrCamOriginVec.transform.forward, out hit,ThrCam_Dist,laymask))
+        if(Physics.Raycast(RayPoint.transform.position, Dir, out hit,ThrCam_Dist,laymask))
         {
-            if (hit.transform.CompareTag("Player"))
-            {
-                ThrCam.transform.position = ThrCamOriginVec.transform.position;              
-                
-            }
-            else if(hit.transform.CompareTag("CanGrab"))
-            {
-                ThrCam.transform.position = ThrCamOriginVec.transform.position;
-                Debug.Log("GrabThing");
-            }           
-            else
-            {
-                ThrCam.transform.position = hit.point;             
-            }
+            /* if (hit.transform.CompareTag("Player"))
+             {
+                 ThrCam.transform.position = ThrCamOriginVec.transform.position;              
+
+             }
+             else if(hit.transform.CompareTag("CanGrab"))
+             {
+                 ThrCam.transform.position = ThrCamOriginVec.transform.position;
+                 Debug.Log("GrabThing");
+             }           
+             else
+             {
+
+             }*/          
+            ThrCam.transform.position = hit.point;
+            ThrCam.transform.position -= Dir * 1.2f;
         }
         else
         {

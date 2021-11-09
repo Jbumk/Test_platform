@@ -85,6 +85,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\LB3D\CrabMonster\Scripts\Rikayon.cs" />
+    <Compile Include="Assets\Scripts\Con_Mon\Crab_Dect.cs" />
     <Compile Include="Assets\Scripts\Con_Player\GetHandLight.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Prefabs\Player&apos;s\Rin New 3d - Anime Style\Demo\Scripts\UIManager.cs" />
@@ -140,7 +141,7 @@
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Regene_Cube.cs" />
     <Compile Include="Assets\LB3D\CrabMonster\LB3DGameManager.cs" />
-    <Compile Include="Assets\Scripts\Con_Mon\Crab_Dect.cs" />
+    <Compile Include="Assets\Scripts\Con_Mon\Crab_See.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />

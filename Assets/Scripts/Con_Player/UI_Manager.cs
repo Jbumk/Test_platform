@@ -21,14 +21,14 @@ public class UI_Manager : MonoBehaviour
     private static UI_Manager m_inst;
 
 
-    public Text textHP;
+    //public Text textHP;
     public Slider silderHP;
 
-    public Text textMP;
+    //public Text textMP;
     public Slider silderMP;
 
-    public Text textEXP;
-    public Text textLV;
+   // public Text textEXP;
+   // public Text textLV;
 
     private int MaxHP = 100;
     private int NowHP = 100;
@@ -41,7 +41,7 @@ public class UI_Manager : MonoBehaviour
 
     private int LV = 1;
 
-    double perEXP;
+   // double perEXP;
     double perHP;
     double perMP;
     private bool isDead = false;
@@ -79,7 +79,7 @@ public class UI_Manager : MonoBehaviour
     }
 
     //EXP값에 변동 있을때 호출
-    public int alterEXP(int altValue)
+   /* public int alterEXP(int altValue)
     {
         NowEXP += altValue;
 
@@ -95,9 +95,10 @@ public class UI_Manager : MonoBehaviour
 
         UIUpdate();
         return NowEXP;
-    }
+    }*/
 
     //레벨업시 스텟변경
+    /*
     public void alterStat()
     {
         MaxHP *= 12 / 10;
@@ -106,7 +107,7 @@ public class UI_Manager : MonoBehaviour
         NowMP = MaxMP;
         MaxEXP *= 15 / 10;
 
-    }
+    }*/
 
     //계산위해 HP,MP값 리턴
     public int getMaxHP()
@@ -146,16 +147,16 @@ public class UI_Manager : MonoBehaviour
         //UI창 업데이트
         public void UIUpdate()
     {
-        perEXP = (double)NowEXP / (double)MaxEXP * 100;
+       // perEXP = (double)NowEXP / (double)MaxEXP * 100;
 
-        if (NowHP > MaxHP) NowHP = MaxHP;
-        textHP.text = NowHP + "/" + MaxHP;
+       // if (NowHP > MaxHP) NowHP = MaxHP;
+       // textHP.text = NowHP + "/" + MaxHP;
 
-        if (NowMP > MaxMP) NowMP = MaxMP;
-        textMP.text = NowMP + "/" + MaxMP;
+       // if (NowMP > MaxMP) NowMP = MaxMP;
+        //textMP.text = NowMP + "/" + MaxMP;
 
-        textEXP.text = NowEXP + "/" + MaxEXP + "(" + perEXP + "%)";
-        textLV.text = LV + "";
+       // textEXP.text = NowEXP + "/" + MaxEXP + "(" + perEXP + "%)";
+        //textLV.text = LV + "";
 
         perHP = (double)NowHP / (double)MaxHP * 100;
         perMP = (double)NowMP / (double)MaxMP * 100;

@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Crab_Dect : MonoBehaviour
 {
-    public static bool Dect_Player=false;
+ 
 
+
+   
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            Dect_Player = true;
+          //  Dect_Player = true;
         }
     }
 
@@ -18,7 +20,7 @@ public class Crab_Dect : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            Dect_Player = false;
+            //Dect_Player = false;
         }
     }
 }

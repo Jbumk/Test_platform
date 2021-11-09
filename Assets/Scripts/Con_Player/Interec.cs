@@ -31,6 +31,7 @@ public class Interec : MonoBehaviour
     public AudioSource GrabSound;
     public AudioSource ThrowSound;
 
+    private Vector3 TempVec;
     
 
     private void Update()
@@ -39,6 +40,10 @@ public class Interec : MonoBehaviour
         if (GrabObj != null)
         {
             GrabObjRigid.velocity = Vector3.zero;
+            TempVec = GrabObj.transform.position;
+            TempVec.y = transform.position.y;
+            GrabObj.transform.position = TempVec;
+            
             if (Input.GetMouseButtonDown(0))
             {
                 ThrowObj();

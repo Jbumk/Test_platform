@@ -20,7 +20,7 @@ public class Mon_Test : MonoBehaviour
     {
         if (Now_HP == 0)
         {
-            UI_Manager.instance.alterEXP(10); 
+           // UI_Manager.instance.alterEXP(10); 
             Destroy(this.gameObject);
             
 
