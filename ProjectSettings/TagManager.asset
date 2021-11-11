@@ -18,6 +18,7 @@ TagManager:
   - TPElse
   - ElseObj
   - Roof
+  - CrabDect
   layers:
   - Default
   - TransparentFX

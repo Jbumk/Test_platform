@@ -28,11 +28,11 @@ public class Crab_See : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Player"))
                 {
-                    Crab_Act.See_Player = true;
+                    Crab_Act.instance.SeePlayer();
                 }
                 else
                 {
-                    Crab_Act.See_Player = false;
+                    Crab_Act.instance.MissPlayer();
                 }
             }
         }
@@ -42,7 +42,7 @@ public class Crab_See : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            Crab_Act.See_Player = false;
+            Crab_Act.instance.MissPlayer();
         }
     }
 }

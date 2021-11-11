@@ -22,9 +22,7 @@ public class Chara_Main_Move : MonoBehaviour
     
     private static Vector3 RevivePoint = new Vector3(0, 3, 0); //부활할 첫번째 지점
 
-    public AudioSource JumpSound;
-
-
+  
    
     void Start()
     {       
@@ -174,8 +172,7 @@ public class Chara_Main_Move : MonoBehaviour
     private void Jump()
     {
         if (OnGround && !isJump)
-        {
-            JumpSound.Play();
+        {           
             OnGround = false;
             isJump = true;
             rigid.AddForce(Vector3.up * 6f, ForceMode.Impulse);

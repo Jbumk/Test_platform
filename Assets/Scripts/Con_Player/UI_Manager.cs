@@ -36,10 +36,10 @@ public class UI_Manager : MonoBehaviour
     private int MaxMP = 100;
     private int NowMP = 100;
 
-    private int MaxEXP = 100;
-    private int NowEXP = 0;
+   // private int MaxEXP = 100;
+   // private int NowEXP = 0;
 
-    private int LV = 1;
+  //  private int LV = 1;
 
    // double perEXP;
     double perHP;
