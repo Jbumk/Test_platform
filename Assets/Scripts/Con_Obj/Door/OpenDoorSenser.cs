@@ -14,14 +14,21 @@ public class OpenDoorSenser : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Player")|| col.gameObject.CompareTag("CrabInterec"))
         {
             DoorValue.enabled = true;
         }      
     }
+    private void OnTriggerStay(Collider col)
+    {
+        if (col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("CrabInterec"))
+        {
+            DoorValue.enabled = true;
+        }
+    }
     private void OnTriggerExit(Collider col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("CrabInterec"))
         {
             OpenDoor.isDoing = false;
             DoorValue.enabled = false;

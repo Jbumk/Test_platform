@@ -4,41 +4,65 @@ using UnityEngine;
 
 public class OpenDoor : MonoBehaviour
 {
-    private bool isOpen = false;
+    public bool isOpen = false;
     public static bool isDoing = false;
+    private bool CrabOpen = false;
 
     public GameObject Open;
     public GameObject Close;
 
-   
 
-    Quaternion StartQuat;
-    Quaternion EndQuat;
+    public AudioSource Sound;
+ 
+   
+    private Quaternion StartQuat;
+    private Quaternion EndQuat;
+
+    
+
     private void Start()
     {
         StartQuat = Open.transform.rotation;
         EndQuat = Close.transform.rotation;
     }
     private void Update()
-    {
+    {       
+
         if (isDoing)
-        {
-            
-            MoveDoor(StartQuat);
-            
+        {           
+            MoveDoor();           
         }
+        else
+        {
+            if (isOpen)
+            {
+                if (transform.rotation != StartQuat)
+                {
+                    transform.rotation = Quaternion.Slerp(transform.rotation, StartQuat, 10f * Time.deltaTime);
+                }
+            }
+            else
+            {
+                if (transform.rotation != EndQuat)
+                {
+                    transform.rotation = Quaternion.Slerp(transform.rotation, EndQuat, 10f * Time.deltaTime);
+                }
+            }
+        }
+
+
     }
 
     //문 움직이기
-    private void MoveDoor(Quaternion StartQuat)
-    {       
+    private void MoveDoor()
+    {
         if (isOpen)
         {
             //transform.rotation = EndQuat;
             
-           this.transform.rotation = Quaternion.Slerp(this.transform.rotation, EndQuat, 10f * Time.deltaTime);
+           transform.rotation = Quaternion.Slerp(transform.rotation, EndQuat, 10f * Time.deltaTime);
             
-            if (this.transform.rotation == EndQuat)
+            if (transform.rotation == EndQuat)
             {
                 isOpen = false;
                 isDoing = false;
@@ -47,29 +71,45 @@ public class OpenDoor : MonoBehaviour
         else
         {
             //transform.rotation = StartQuat;
-            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, StartQuat, 10f * Time.deltaTime);
+           transform.rotation = Quaternion.Slerp(transform.rotation, StartQuat, 10f * Time.deltaTime);
             
 
-            if (this.transform.rotation == StartQuat)
+            if (transform.rotation == StartQuat)
             {
                 isOpen = true;
                 isDoing = false;
             }
         }
-     
-        
-    }
 
-    //회전각 받아오기
+       
+    }
+    
 
     
+     //interec에서 e눌렀을때 실행 or 문닫혀있을때 Crab접근하면 실행
     public void Doing()
     {
+        Sound.Play();
         isDoing = true;
-        Debug.Log("행동시작");
     }
-   
-  
-    
-   
+
+ 
+
+    private void OnTriggerStay(Collider col)
+    {
+        if (col.gameObject.CompareTag("CrabDect"))
+        {
+            if (isDoing)
+            {
+                Crab_Act.instance.HearSound(2, transform.position);
+            }
+        }
+    }
+
+    public bool OpenChk()
+    {
+        return isOpen;
+    }
+ 
+
 }

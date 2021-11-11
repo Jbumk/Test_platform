@@ -50,6 +50,7 @@ public class Player_Sound : MonoBehaviour
             {
                 if (Timer >= CoolTIme)
                 {
+                    Run.Stop();
                     Walk.Play();
                     isWalk = true;
                     Timer = 0;
@@ -59,6 +60,7 @@ public class Player_Sound : MonoBehaviour
             {
                 if (Timer >= CoolTIme)
                 {
+                    Walk.Stop();
                     Run.Play();
                     isRun = true;
                     Timer = 0;
@@ -74,7 +76,8 @@ public class Player_Sound : MonoBehaviour
             if (Chara_Main_Move.isJump)
             {
                 JumpEnd = false;
-                Jump.Play();               
+                Jump.Play();    
+                
             }
 
         }

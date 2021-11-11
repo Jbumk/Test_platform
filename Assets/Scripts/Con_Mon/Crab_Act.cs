@@ -25,13 +25,17 @@ public class Crab_Act : MonoBehaviour
     public GameObject Player;
     private Rigidbody rigid;
     private NavMeshAgent nav;
+   
 
     private float Timer = 0;
     private double CoolTime = 1.0;
+    private float Att_Timer = 0;
+    private double Att_CoolTime = 3.0;
 
     //감지 조건들
     private bool See_Player = false;
     private bool Hear= false;
+    private bool In_AttRange = false;
 
     private Vector3 Hear_Position;// 들은곳의 위치
 
@@ -45,7 +49,8 @@ public class Crab_Act : MonoBehaviour
     void Update()
     {
         Timer += Time.deltaTime;
-        if (Timer >= CoolTime)
+        Att_Timer += Time.deltaTime;
+        if (Timer >= CoolTime && !In_AttRange)
         {
             if (nav.velocity!= Vector3.zero)
             {
@@ -72,6 +77,20 @@ public class Crab_Act : MonoBehaviour
         }
 
 
+        if (In_AttRange && Att_Timer >= Att_CoolTime)
+        {
+            Att_Timer = 0;
+            animator.SetTrigger("Attack_1");
+        }
+        else if (In_AttRange && Att_Timer >= 0.5 && Att_Timer < 1)
+        {
+            UI_Manager.instance.alterHP(50);
+            In_AttRange = false;
+        }else if (!In_AttRange && Att_Timer<1)
+        {
+            Att_Timer = 1f;
+        }
+
         //듣는것보다 보는것 더 우선시
         //소리를 들었을때 해당 위치로 이동
     }
@@ -87,13 +106,22 @@ public class Crab_Act : MonoBehaviour
         See_Player = false;
     }
 
+    public void Do_Att()
+    {
+        In_AttRange = true;
+    }
+    public void Cancle_Att()
+    {
+        In_AttRange = false;
+    }
+
     public void HearSound(int SoundType,Vector3 Pos)
     {
         //SoundType  1 => 작은소리(중간절반) 2=>중간 (Dect Area크기의 거리) 3=> (큰소리 어디든 감지)
         switch (SoundType)
         {
             case 1:
-                if (Vector3.Distance(transform.position, Pos) <= 15f)
+                if (Vector3.Distance(transform.position, Pos) <= 5f)
                 {
                     Hear_Position = Pos;
                     Hear = true;
