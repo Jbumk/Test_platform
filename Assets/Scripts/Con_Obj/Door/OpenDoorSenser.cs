@@ -6,7 +6,7 @@ public class OpenDoorSenser : MonoBehaviour
 {
     public GameObject DoorHinge;
     OpenDoor DoorValue;
-
+    /*
     private void Start()
     {
         DoorValue = DoorHinge.gameObject.GetComponent<OpenDoor>();
@@ -30,10 +30,11 @@ public class OpenDoorSenser : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("CrabInterec"))
         {
-            OpenDoor.isDoing = false;
+            
             DoorValue.enabled = false;
             
         }
     }
+    */
 
 }

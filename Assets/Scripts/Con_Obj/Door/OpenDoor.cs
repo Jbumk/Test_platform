@@ -5,8 +5,7 @@ using UnityEngine;
 public class OpenDoor : MonoBehaviour
 {
     public bool isOpen = false;
-    public static bool isDoing = false;
-    private bool CrabOpen = false;
+    public bool isDoing = false;
 
     public GameObject Open;
     public GameObject Close;
@@ -17,6 +16,8 @@ public class OpenDoor : MonoBehaviour
    
     private Quaternion StartQuat;
     private Quaternion EndQuat;
+    private int ActerType = 0;
+    //0= 플레이어 1= Crab
 
     
 
@@ -87,8 +88,9 @@ public class OpenDoor : MonoBehaviour
 
     
      //interec에서 e눌렀을때 실행 or 문닫혀있을때 Crab접근하면 실행
-    public void Doing()
+    public void Doing(int Type)
     {
+        ActerType = Type;
         Sound.Play();
         isDoing = true;
     }
@@ -96,10 +98,10 @@ public class OpenDoor : MonoBehaviour
  
 
     private void OnTriggerStay(Collider col)
-    {
+    {   
         if (col.gameObject.CompareTag("CrabDect"))
         {
-            if (isDoing)
+            if (isDoing && ActerType==0)
             {
                 Crab_Act.instance.HearSound(2, transform.position);
             }

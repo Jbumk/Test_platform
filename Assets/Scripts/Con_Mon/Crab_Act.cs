@@ -19,7 +19,8 @@ public class Crab_Act : MonoBehaviour
 
     private static Crab_Act m_inst;
 
-
+    public GameObject[] DestPos;
+    public int DestNum = 0;
 
     public Animator animator;
     public GameObject Player;
@@ -33,8 +34,8 @@ public class Crab_Act : MonoBehaviour
     private double Att_CoolTime = 3.0;
 
     //감지 조건들
-    private bool See_Player = false;
-    private bool Hear= false;
+    public bool See_Player = false;
+    public bool Hear= false;
     private bool In_AttRange = false;
 
     private Vector3 Hear_Position;// 들은곳의 위치
@@ -74,6 +75,25 @@ public class Crab_Act : MonoBehaviour
         else if(Hear)
         {
             nav.SetDestination(Hear_Position);
+            if (nav.velocity == Vector3.zero)
+            {
+                //소리난곳 도달시 멈춤 추후 방수색기능 추가
+                Hear = false;
+            }
+        }
+        else if(!See_Player && !Hear)
+        {            
+
+            if (2>=Vector3.Distance(transform.position,DestPos[DestNum].transform.position))
+            {
+                DestNum = Random.Range(0,DestPos.Length);
+            }
+            else
+            {                
+                nav.SetDestination(DestPos[DestNum].transform.position);
+            }
+           
+
         }
 
 

@@ -34,7 +34,7 @@ public class Crab_Interec : MonoBehaviour
             Door = col.GetComponent<OpenDoor>();
             if (!Door.OpenChk())
             {
-                Door.Doing();
+                Door.Doing(1);
             }
 
         }

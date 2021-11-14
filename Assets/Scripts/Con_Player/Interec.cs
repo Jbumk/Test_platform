@@ -148,7 +148,7 @@ public class Interec : MonoBehaviour
             if (Input.GetKey(KeyCode.E))
             {                
                 Door = col.gameObject.GetComponent<OpenDoor>();                                            
-                Door.Doing();
+                Door.Doing(0);
                 InterecTimer = 0;              
             }
         }
