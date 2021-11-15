@@ -8,6 +8,7 @@ public class Interec : MonoBehaviour
     private Rigidbody GrabObjRigid = null;
     private Collider GrabObjCol = null;
     private OpenDoor Door=null;
+    private Hid_Locker Locker = null;
 
     public GameObject FirCam;
     public GameObject ThrCam;
@@ -150,6 +151,29 @@ public class Interec : MonoBehaviour
                 Door = col.gameObject.GetComponent<OpenDoor>();                                            
                 Door.Doing(0);
                 InterecTimer = 0;              
+            }
+        }
+
+
+        //Locker 안에 숨기
+        if(col.gameObject.CompareTag("HideLocker")&& GrabObj == null && InterecTimer >= InterecCoolTime)
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                Locker = col.gameObject.GetComponent<Hid_Locker>();
+                if (Chara_Main_Move.isHide)
+                {
+                    //나오기
+                    Chara_Main_Move.isHide = false;
+                    Locker.Expose();
+                }
+                else
+                {
+                    //숨기
+                    Chara_Main_Move.isHide = true;
+                    Locker.Hide();
+                }
+                InterecTimer = 0;
             }
         }
     }

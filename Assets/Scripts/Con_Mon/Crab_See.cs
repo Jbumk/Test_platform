@@ -8,13 +8,31 @@ public class Crab_See : MonoBehaviour
     private Vector3 Dir;
     private RaycastHit hit;
     public GameObject Eyes;
-    
+
+    private bool Miss = false;
+    private double SeeEnd = 1.0;
+    private float Timer = 0;
 
     private void Start()
     {
         laymask = ~laymask;
     }
- 
+
+    private void Update()
+    {
+        if (Miss)
+        {
+            Timer += Time.deltaTime;
+        }
+       
+
+        if(Timer>= SeeEnd)
+        {
+            Crab_Act.instance.MissPlayer();
+            Miss = false;
+            Timer = 0;
+        }
+    }
     private void OnTriggerStay(Collider col)
     {
         
@@ -32,7 +50,8 @@ public class Crab_See : MonoBehaviour
                 }
                 else
                 {
-                    Crab_Act.instance.MissPlayer();
+                    Miss = true;
+                    //Crab_Act.instance.MissPlayer();
                 }
             }
         }
@@ -42,7 +61,8 @@ public class Crab_See : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            Crab_Act.instance.MissPlayer();
+            Miss = true;
+            //Crab_Act.instance.MissPlayer();
         }
     }
 }

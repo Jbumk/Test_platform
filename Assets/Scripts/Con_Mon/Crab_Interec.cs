@@ -5,7 +5,7 @@ using UnityEngine;
 public class Crab_Interec : MonoBehaviour
 {
     private OpenDoor Door;
-    
+    private Hid_Locker Locker;
     
     private void OnTriggerEnter(Collider col)
     {
@@ -29,6 +29,7 @@ public class Crab_Interec : MonoBehaviour
 
     private void OnTriggerStay(Collider col)
     {
+        //Open Door 앞에 있을때 문 연다
         if (col.gameObject.CompareTag("Hinge"))
         {
             Door = col.GetComponent<OpenDoor>();
@@ -37,6 +38,16 @@ public class Crab_Interec : MonoBehaviour
                 Door.Doing(1);
             }
 
+        }
+
+
+        if (col.gameObject.CompareTag("HideLocker"))
+        {
+            if (Crab_Act.instance.See_Player)
+            {
+                Locker = col.gameObject.GetComponent<Hid_Locker>();
+                Locker.Find();
+            }
         }
     }
 

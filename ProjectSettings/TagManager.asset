@@ -8,8 +8,6 @@ TagManager:
   - Monster
   - Pattern
   - Button
-  - Door_Down
-  - Door_Up
   - CanGrab
   - Hinge
   - Lava
@@ -17,9 +15,10 @@ TagManager:
   - Explosion
   - TPElse
   - ElseObj
-  - Roof
   - CrabDect
   - CrabInterec
+  - Room
+  - HideLocker
   layers:
   - Default
   - TransparentFX

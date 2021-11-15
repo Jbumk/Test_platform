@@ -11,7 +11,7 @@ public class Chara_Main_Move : MonoBehaviour
     public static bool isJump=false;// 점프중인지 체크
     public static bool OnDash=false; //대쉬중인지 체크
     public static bool ForwardBlock=false; //앞이 막혀있는지 체크    
-  
+    public static bool isHide = false; //숨어있는지 아닌지 체크
 
     public GameObject ThrCampos;      
     public GameObject RayPoint;    
@@ -36,88 +36,93 @@ public class Chara_Main_Move : MonoBehaviour
     {
         if (!Menu.onMenu)
         {
-            if (Con_Camera.FirCamOn)
+            if (!isHide)
             {
-                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+                if (Con_Camera.FirCamOn)
                 {
-                   
-                    //W눌러서 전방이동
-                    if (Input.GetKey(KeyCode.W))
+                    //1인칭일때 이동 조작
+                    if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
                     {
-                        MoveForward();
+
+                        //W눌러서 전방이동
+                        if (Input.GetKey(KeyCode.W))
+                        {
+                            MoveForward();
+                        }
+
+
+                        //S눌러서 후방이동
+                        if (Input.GetKey(KeyCode.S))
+                        {
+                            MoveBack();
+                        }
+
+                        //A눌러서 좌측 이동
+                        if (Input.GetKey(KeyCode.A))
+                        {
+                            MoveLeft();
+                        }
+
+
+                        //D눌러서 우측 이동
+                        if (Input.GetKey(KeyCode.D))
+                        {
+                            MoveRight();
+                        }
                     }
 
-
-                    //S눌러서 후방이동
-                    if (Input.GetKey(KeyCode.S))
-                    {
-                        MoveBack();
-                    }
-
-                    //A눌러서 좌측 이동
-                    if (Input.GetKey(KeyCode.A))
-                    {
-                        MoveLeft();
-                    }
-
-
-                    //D눌러서 우측 이동
-                    if (Input.GetKey(KeyCode.D))
-                    {
-                        MoveRight();
-                    }
-                }
-
-
-
-            }
-            else
-            {
-                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
-                {
-                    ThrLook();
-                }
-            }
-
-
-
-            //앞 물체 감지    
-
-
-
-            //점프시 속도제어 부분
-            if (isJump && OnGround || ForwardBlock)
-            {
-                speed = 0f;
-            }
-            else
-            {
-                ForwardBlock = false;
-                if (OnDash)
-                {
-                    speed = 6f;
                 }
                 else
                 {
-                    speed = 3f;
-                }
-            }
+                    //3인칭일때 이동 조작
+                    if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+                    {
+                        ThrLook();
+                    }
+                }                                                       
 
-            //스페이스 눌러 점프
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                if (!isJump)
+
+                //점프시 속도제어 부분
+                if (isJump && OnGround || ForwardBlock)
                 {
-                    Jump();
+                    speed = 0f;
                 }
-            }
+                else
+                {
+                    ForwardBlock = false;
+                    if (OnDash)
+                    {
+                        speed = 6f;
+                    }
+                    else
+                    {
+                        speed = 3f;
+                    }
+                }
 
-            //R키를 눌러 위치 이전 체크포인트로
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                ResetManager.ObjReset = true;
-                ResetManager.BtnReset = true;
-               Revive();
+                //스페이스 눌러 점프
+                if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    if (!isJump)
+                    {
+                        Jump();
+                    }
+                }
+
+
+                //R키를 눌러 리셋
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    ResetManager.ObjReset = true;
+                    ResetManager.BtnReset = true;
+                    Revive();
+                }
+
+
+
+                //대쉬 작동과 해제
+                Dash();
+
             }
 
             //죽었을시 엔터키 눌러 부활
@@ -128,11 +133,6 @@ public class Chara_Main_Move : MonoBehaviour
                     Revive();
                 }
             }
-
-
-            //대쉬 작동과 해제
-            Dash();
-            
         }
     
     }
@@ -158,12 +158,10 @@ public class Chara_Main_Move : MonoBehaviour
     {        
        transform.Translate(Vector3.back * speed * Time.deltaTime);      
     }
-
     private void MoveLeft()
     {       
       transform.Translate(Vector3.left * speed * Time.deltaTime);      
     }
-
     private void MoveRight()
     {      
        transform.Translate(Vector3.right * speed * Time.deltaTime);      
@@ -178,9 +176,7 @@ public class Chara_Main_Move : MonoBehaviour
             rigid.AddForce(Vector3.up * 6f, ForceMode.Impulse);
         }
     }
-
-
-
+       
     //대쉬 작동과 해제
     private void Dash()
     {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Con_Camera : MonoBehaviour
 {
     public static bool FirCamOn = true;
+    public static bool setFircam = false;
     public GameObject FirCam;
     public GameObject ThrCam;
     public static GameObject ThrCamPos;
@@ -52,6 +53,14 @@ public class Con_Camera : MonoBehaviour
                 ChangeCam();
             }
 
+            if (setFircam)
+            {
+                FirCamOn = true;
+                FirCam.SetActive(true);
+                ThrCam.SetActive(false);
+                body.SetActive(false);
+            }
+
             FirCam.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.5f, Player.transform.position.z);
             ThrCamPos.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.2f, Player.transform.position.z);
 
@@ -82,19 +91,17 @@ public class Con_Camera : MonoBehaviour
         {
             if (FirCamOn == true)
             {
-
-                FirCam.SetActive(false);
-                ThrCam.SetActive(true);
                 FirCamOn = false;
+                FirCam.SetActive(false);
+                ThrCam.SetActive(true);                
                 body.SetActive(true);
 
             }
             else
             {
-
-                FirCam.SetActive(true);
-                ThrCam.SetActive(false);
                 FirCamOn = true;
+                FirCam.SetActive(true);
+                ThrCam.SetActive(false);                
                 body.SetActive(false);
                 FirCam.transform.rotation = ThrCamPos.transform.rotation;
                
