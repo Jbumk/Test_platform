@@ -26,7 +26,8 @@ public class Crab_Act : MonoBehaviour
     public GameObject Player;
     private Rigidbody rigid;
     private NavMeshAgent nav;
-   
+
+    private Vector3 ResetPos;
 
     private float Timer = 0;
     private double CoolTime = 1.0;
@@ -44,6 +45,7 @@ public class Crab_Act : MonoBehaviour
     {
         nav = GetComponent<NavMeshAgent>();
         rigid = GetComponent<Rigidbody>();
+        ResetPos = transform.position;
     }
 
     
@@ -51,7 +53,17 @@ public class Crab_Act : MonoBehaviour
     {
         Timer += Time.deltaTime;
         Att_Timer += Time.deltaTime;
-        
+
+        /*
+        if (ResetManager.ObjReset)
+        {
+          
+            Hear = false;
+            See_Player = false;
+            nav.SetDestination(DestPos[DestNum].transform.position);
+        }*/
+
+
         //움직이는 애니메이션 담당
         if (Timer >= CoolTime && !In_AttRange)
         {
@@ -73,18 +85,18 @@ public class Crab_Act : MonoBehaviour
         //추적, 수색 부분
         if (See_Player)
         {
-            nav.speed = 6.2f;
+            nav.speed = 5.5f;
             nav.SetDestination(Player.transform.position);
         }
         else if(Hear)
         {
-            nav.speed = 6.2f;
+            nav.speed = 5.5f;
             nav.SetDestination(Hear_Position);
-            if (nav.velocity == Vector3.zero)
+
+            if (2 >= Vector3.Distance(transform.position, Hear_Position))
             {
-                //소리난곳 도달시 멈춤 추후 방수색기능 추가
                 Hear = false;
-            }
+            }           
         }
         else if(!See_Player && !Hear)
         {
@@ -110,10 +122,12 @@ public class Crab_Act : MonoBehaviour
             if (In_AttRange && Att_Timer >= Att_CoolTime)
             {
                 Att_Timer = 0;
+                nav.velocity = Vector3.zero;
                 animator.SetTrigger("Attack_1");
             }
             else if (In_AttRange && Att_Timer >= 0.5 && Att_Timer < 1)
             {
+                
                 UI_Manager.instance.alterHP(100);
                 In_AttRange = false;
                 Att_Timer = 1f;
@@ -124,6 +138,7 @@ public class Crab_Act : MonoBehaviour
             }
         }
 
+       
         //듣는것보다 보는것 더 우선시
         //소리를 들었을때 해당 위치로 이동
     }

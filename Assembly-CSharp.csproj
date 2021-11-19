@@ -118,6 +118,7 @@
     <Compile Include="Assets\Scripts\Con_Obj\Con_MovingPlat2.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Con_Pendulum.cs" />
     <Compile Include="Assets\Scripts\Screen_Set.cs" />
+    <Compile Include="Assets\Scripts\Con_Obj\New Folder\Hid_Locker.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
@@ -144,7 +145,7 @@
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Regene_Cube.cs" />
     <Compile Include="Assets\LB3D\CrabMonster\LB3DGameManager.cs" />
-    <Compile Include="Assets\Scripts\Con_Obj\New Folder\Hid_Locker.cs" />
+    <Compile Include="Assets\Scripts\Con_Mon\Crab_AttRange.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />

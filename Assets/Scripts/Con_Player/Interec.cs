@@ -14,6 +14,7 @@ public class Interec : MonoBehaviour
     public GameObject ThrCam;
     public GameObject Player;
 
+    
     Vector3 ThrCamVec;
     Quaternion HingeQuat;
 
@@ -170,8 +171,11 @@ public class Interec : MonoBehaviour
                 else
                 {
                     //숨기
-                    Chara_Main_Move.isHide = true;
-                    Locker.Hide();
+                    if (!Crab_Act.instance.See_Player)
+                    {
+                        Chara_Main_Move.isHide = true;
+                    }
+                    Locker.Hide(Player);
                 }
                 InterecTimer = 0;
             }

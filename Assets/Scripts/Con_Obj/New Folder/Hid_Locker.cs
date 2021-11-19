@@ -8,8 +8,7 @@ public class Hid_Locker : MonoBehaviour
     public GameObject HidePos;
     //해당 Locker 숨었는지 체크
     private bool HideThis = false;
-
-    public GameObject Player;
+    private GameObject Player;
 
     public GameObject Door;
     public GameObject OpenRot;
@@ -18,14 +17,8 @@ public class Hid_Locker : MonoBehaviour
 
     private void Update()
     {
-        if (HideThis)
-        {
-            Con_Camera.setFircam = true;
-        }
-        else
-        {
-            Con_Camera.setFircam = false;
-        }
+       
+        
 
 
         if (isOpen)
@@ -48,20 +41,25 @@ public class Hid_Locker : MonoBehaviour
 
 
     //숨기
-    public void Hide()
+    public void Hide(GameObject Player)
     {
+        this.Player = Player;
         HideThis = true;
         isOpen = false;
         Player.transform.position = HidePos.transform.position;
         Player.transform.rotation = HidePos.transform.rotation;
+        Con_Camera.setFircam = true;
 
     }
     
     //나오기
     public void Expose()
     {
+        
         HideThis = false;        
         Player.transform.position = HidePos.transform.position + (HidePos.transform.forward*3f);
+        Player = null;
+        Con_Camera.setFircam = false;
 
     }
 
@@ -73,6 +71,7 @@ public class Hid_Locker : MonoBehaviour
         if (HideThis)
         {
             Chara_Main_Move.isHide = false;
+            Con_Camera.setFircam = false;
         }
     }
 }

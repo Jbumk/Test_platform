@@ -46,13 +46,11 @@ public class Con_Camera : MonoBehaviour
     {
         Dir = ThrCamOriginVec.transform.position - RayPoint.transform.position;
         ChangeTimer += Time.deltaTime;
+
+      
+
         if (!Menu.onMenu)
         {
-            if (ChangeTimer >= ChangeCoolTime)
-            {
-                ChangeCam();
-            }
-
             if (setFircam)
             {
                 FirCamOn = true;
@@ -60,6 +58,13 @@ public class Con_Camera : MonoBehaviour
                 ThrCam.SetActive(false);
                 body.SetActive(false);
             }
+
+            if (ChangeTimer >= ChangeCoolTime)
+            {
+                ChangeCam();
+            }
+
+            
 
             FirCam.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.5f, Player.transform.position.z);
             ThrCamPos.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.2f, Player.transform.position.z);
@@ -87,7 +92,7 @@ public class Con_Camera : MonoBehaviour
     private  void ChangeCam()
     {
 
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKey(KeyCode.F)&&!setFircam)
         {
             if (FirCamOn == true)
             {
