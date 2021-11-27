@@ -15,6 +15,7 @@ public class Interec : MonoBehaviour
     public GameObject Player;
 
     
+    
     Vector3 ThrCamVec;
     Quaternion HingeQuat;
 
@@ -149,15 +150,56 @@ public class Interec : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E))
             {                
-                Door = col.gameObject.GetComponent<OpenDoor>();                                            
-                Door.Doing(0);
-                InterecTimer = 0;              
+                Door = col.gameObject.GetComponent<OpenDoor>();
+                //열려있는 문
+                if (Door.LockChk() == 0)
+                {
+                    Door.Doing(0);
+
+                }
+                //잠긴 문
+                else
+                {
+                    //잠긴 문의 열쇠를 가지고 있는지 체크Door.LockChk는 해당문의 LockType(잠겨있는 값)을 반환한다
+                    //추후 간편하게 수정하기
+                    Door.UnLock((UI_Manager.instance.KeyChk(Door.LockChk())));
+                    
+
+                    
+                }
+
+                InterecTimer = 0;
             }
         }
 
 
-        //Locker 안에 숨기
-        if(col.gameObject.CompareTag("HideLocker")&& GrabObj == null && InterecTimer >= InterecCoolTime)
+        //키 획득
+        if (col.gameObject.CompareTag("Key") && GrabObj == null && InterecTimer >= InterecCoolTime)
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                switch (col.gameObject.name){
+                    case "Black":
+                        UI_Manager.instance.GetKey(1);                        
+                        break;
+                    case "Blue":
+                        UI_Manager.instance.GetKey(2);
+                        break;
+                    case "Green":
+                        UI_Manager.instance.GetKey(3);
+                        break;
+                    case "Red":
+                        UI_Manager.instance.GetKey(4);
+                        break;
+                }
+                col.gameObject.SetActive(false);
+                InterecTimer = 0;
+            }
+        }
+
+
+       //Locker 안에 숨기
+       if (col.gameObject.CompareTag("HideLocker")&& GrabObj == null && InterecTimer >= InterecCoolTime)
         {
             if (Input.GetKey(KeyCode.E))
             {
@@ -184,6 +226,7 @@ public class Interec : MonoBehaviour
 
     private void OnTriggerExit(Collider col)
     {
+        //물건 놓치기
         if (GrabObj != null && col.gameObject.CompareTag("CanGrab"))
         {
             GrabSound.Play();

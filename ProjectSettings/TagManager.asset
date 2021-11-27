@@ -19,6 +19,7 @@ TagManager:
   - CrabInterec
   - Room
   - HideLocker
+  - Key
   layers:
   - Default
   - TransparentFX

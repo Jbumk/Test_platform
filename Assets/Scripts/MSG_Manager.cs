@@ -23,7 +23,7 @@ public class MSG_Manager : MonoBehaviour
     private int MSG_Code;
     private bool DoPrint = false;
     private float Timer = 0;
-    private double PrintTime = 3.0;
+    private double PrintTime = 2.0;
     public GameObject MSGPanel;
     public TextMeshProUGUI MSG;
     
@@ -79,6 +79,12 @@ public class MSG_Manager : MonoBehaviour
                     break;
                 case 9:
                     MSG.text = "Press R to Reset";
+                    break;
+                case 10:
+                    MSG.text = "Locked";
+                    break;
+                case 11:
+                    MSG.text = "Door Unlock";
                     break;
 
             }

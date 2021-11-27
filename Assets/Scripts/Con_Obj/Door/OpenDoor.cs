@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class OpenDoor : MonoBehaviour
 {
-    public bool isOpen = false;
-    public bool isDoing = false;
+    private bool isOpen = false;
+    private bool isDoing = false;  
+    public int LockeCode = 0;
+    //0 Unlock 1 Black 2 Blue 3 Green 4 Red
 
     public GameObject Open;
     public GameObject Close;
@@ -89,12 +91,29 @@ public class OpenDoor : MonoBehaviour
     
      //interec에서 e눌렀을때 실행 or 문닫혀있을때 Crab접근하면 실행
     public void Doing(int Type)
-    {
+    {           
         ActerType = Type;
         Sound.Play();
-        isDoing = true;
+        isDoing = true;        
     }
 
+    public void UnLock(bool HaveKey)
+    {
+        if (HaveKey)
+        {
+            //잠금 헤제 메세지 출력 
+            MSG_Manager.instance.Ins_Code(11);
+            LockeCode = 0;
+            Doing(0);
+        }
+        else
+        {
+            //잠긴문 사운드 출력
+
+            //잠김 메세지 출력
+            MSG_Manager.instance.Ins_Code(10);
+        }
+    }
  
 
     private void OnTriggerStay(Collider col)
@@ -113,5 +132,9 @@ public class OpenDoor : MonoBehaviour
         return isOpen;
     }
  
+    public int LockChk()
+    {
+        return LockeCode;
+    }
 
 }

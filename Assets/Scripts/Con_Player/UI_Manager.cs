@@ -19,7 +19,7 @@ public class UI_Manager : MonoBehaviour
     }
 
     private static UI_Manager m_inst;
-
+    
 
     //public Text textHP;
     public Slider silderHP;
@@ -47,6 +47,11 @@ public class UI_Manager : MonoBehaviour
     private bool isDead = false;
     public GameObject DeadScean;
     public GameObject HitScean;
+
+    //키 관련
+    private bool[] Keys = { false, false, false, false };
+    public Image[] Img_Keys;
+
 
     //HP값에 변동 있을때 호출
     public int alterHP(int altValue)
@@ -180,5 +185,15 @@ public class UI_Manager : MonoBehaviour
     {
         UIUpdate();
        
+    }
+    public void GetKey(int KeyCode)
+    {
+        Img_Keys[KeyCode - 1].gameObject.SetActive(true);
+        Keys[KeyCode - 1] = true;
+    }
+
+    public bool KeyChk(int KeyCode)
+    {
+        return Keys[KeyCode - 1];
     }
 }
