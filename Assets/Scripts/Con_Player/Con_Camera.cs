@@ -63,8 +63,7 @@ public class Con_Camera : MonoBehaviour
             {
                 ChangeCam();
             }
-
-            
+                        
 
             FirCam.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.5f, Player.transform.position.z);
             ThrCamPos.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.2f, Player.transform.position.z);
