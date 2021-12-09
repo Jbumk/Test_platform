@@ -31,7 +31,7 @@ public class DetectDown : MonoBehaviour
         
         if (col.gameObject.CompareTag("Ground"))
         {
-            Chara_Main_Move.isJump = true;           
+           // Chara_Main_Move.isJump = true;           
         }
     }
 }
