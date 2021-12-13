@@ -15,6 +15,7 @@ public class Con_Camera : MonoBehaviour
 
     private Vector3 Dir;
     private float Mouse_Speed = 2f;
+    private float Distance; //ThrCam과 Player의 거리 저장
    
 
     private float ChangeTimer = 0;
@@ -155,9 +156,10 @@ public class Con_Camera : MonoBehaviour
              else
              {
 
-             }*/          
-            ThrCam.transform.position = hit.point;
-            ThrCam.transform.position -= Dir * 1.2f;
+             }*/
+            Distance = Vector3.Distance(ThrCam.transform.position, Player.transform.position);
+            ThrCam.transform.position = hit.point;            
+            ThrCam.transform.position += ThrCam.transform.forward*(Distance*0.5f);
         }
         else
         {
