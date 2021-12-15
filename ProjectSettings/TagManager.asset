@@ -20,6 +20,7 @@ TagManager:
   - Room
   - HideLocker
   - Key
+  - Roof
   layers:
   - Default
   - TransparentFX
