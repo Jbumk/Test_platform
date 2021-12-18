@@ -79,11 +79,11 @@ public class Chara_Main_Move : MonoBehaviour
                     {
                         ThrLook();
                     }
-                }                                                       
+                }
 
 
                 //점프시 속도제어 부분
-                if (isJump && OnGround || ForwardBlock)
+                if (ForwardBlock&&!OnGround)
                 {
                     speed = 0f;
                 }
@@ -103,7 +103,7 @@ public class Chara_Main_Move : MonoBehaviour
                 //스페이스 눌러 점프
                 if (Input.GetKeyUp(KeyCode.Space))
                 {
-                    if (!isJump)
+                    if (!isJump&&OnGround)
                     {
                         Jump();
                     }
@@ -168,13 +168,11 @@ public class Chara_Main_Move : MonoBehaviour
     }
     
     private void Jump()
-    {
-        if (OnGround && !isJump)
-        {           
-            OnGround = false;
-            isJump = true;
-            rigid.AddForce(Vector3.up * 6f, ForceMode.Impulse);
-        }
+    {                 
+       //OnGround = false;
+       //isJump = true;
+       rigid.AddForce(Vector3.up * 6f, ForceMode.Impulse);
+        
     }
        
     //대쉬 작동과 해제
@@ -219,7 +217,7 @@ public class Chara_Main_Move : MonoBehaviour
 
 
     //바닥에 닿았을시 체크함수 true로변경
-    
+    /*
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -232,13 +230,12 @@ public class Chara_Main_Move : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
-        {
-            Debug.Log("PlayerOut");
+        {           
             OnGround = false;
 
         }
     }  
-
+    */
  
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ플레이어의 위치 이동 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ

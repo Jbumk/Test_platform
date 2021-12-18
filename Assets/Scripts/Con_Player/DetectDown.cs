@@ -19,19 +19,23 @@ public class DetectDown : MonoBehaviour
     private void OnTriggerStay(Collider col)
     {
         
-        if (col.gameObject.CompareTag("Ground"))
+        if (col.gameObject.CompareTag("Ground")&& !Chara_Main_Move.OnGround)
         {
             Chara_Main_Move.isJump = false;
             Chara_Main_Move.OnGround = true;
      
         }     
     }
+    
+    
     private void OnTriggerExit(Collider col)
     {
         
         if (col.gameObject.CompareTag("Ground"))
         {
-           // Chara_Main_Move.isJump = true;           
+            Chara_Main_Move.isJump = true;
+            Chara_Main_Move.OnGround = false;
+            // Chara_Main_Move.isJump = true;           
         }
     }
 }

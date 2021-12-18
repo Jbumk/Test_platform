@@ -7,19 +7,25 @@ public class DetectForward : MonoBehaviour
     private void OnTriggerEnter(Collider col)
     {
         
-        if (col.gameObject.CompareTag("Ground"))
+        if (col.gameObject.CompareTag("Wall"))
         {
             Chara_Main_Move.ForwardBlock = true;
+            
         }
+        
     }
+   
 
+    
     private void OnTriggerExit(Collider col)
     {
-        if (col.gameObject.CompareTag("Ground"))
+
+        if (col.gameObject.CompareTag("Wall"))
         {
             Chara_Main_Move.ForwardBlock = false;
+        
         }
     }
-
+    
 
 }

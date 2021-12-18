@@ -21,6 +21,7 @@ TagManager:
   - HideLocker
   - Key
   - Roof
+  - Wall
   layers:
   - Default
   - TransparentFX

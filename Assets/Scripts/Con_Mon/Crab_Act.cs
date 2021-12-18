@@ -38,6 +38,7 @@ public class Crab_Act : MonoBehaviour
     public bool See_Player = false;
     public bool Hear= false;
     private bool In_AttRange = false;
+    public bool Sleep = true;
 
     private Vector3 Hear_Position;// 들은곳의 위치
 
@@ -63,79 +64,85 @@ public class Crab_Act : MonoBehaviour
             nav.SetDestination(DestPos[DestNum].transform.position);
         }*/
 
-
-        //움직이는 애니메이션 담당
-        if (Timer >= CoolTime && !In_AttRange)
-        {
-            if (nav.velocity!= Vector3.zero)
-            {
-
-                animator.SetTrigger("Walk_Cycle_1");
-            }
-            else
-            {
-                animator.SetTrigger("Rest_1");
-            }
-            Timer = 0;
-        }
-
-
-
         
-        //추적, 수색 부분
-        if (See_Player)
+
+        //깨어있을때의 행동
+        if (!Sleep)
         {
-            nav.speed = 5.5f;
-            nav.SetDestination(Player.transform.position);
+
+            //움직이는 애니메이션 담당
+            if (Timer >= CoolTime && !In_AttRange)
+            {
+                if (nav.velocity != Vector3.zero)
+                {
+
+                    animator.SetTrigger("Walk_Cycle_1");
+                }
+                else
+                {
+                    animator.SetTrigger("Rest_1");
+                }
+                Timer = 0;
+            }
+
+            //추적, 수색 부분
+            if (See_Player)
+            {
+                nav.speed = 5.5f;
+                nav.SetDestination(Player.transform.position);
+            }
+            else if (Hear)
+            {
+                nav.speed = 5.5f;
+                nav.SetDestination(Hear_Position);
+
+                if (2 >= Vector3.Distance(transform.position, Hear_Position))
+                {
+                    Hear = false;
+                }
+            }
+            else if (!See_Player && !Hear)
+            {
+                nav.speed = 2.5f;
+                if (2 >= Vector3.Distance(transform.position, DestPos[DestNum].transform.position))
+                {
+                    DestNum = Random.Range(0, DestPos.Length);
+                }
+                else
+                {
+                    nav.SetDestination(DestPos[DestNum].transform.position);
+                }
+
+            }
+
+
+
+            //공격하는 부분
+            //숨어있을땐 공격X
+            if (!Chara_Main_Move.isHide)
+            {
+                if (In_AttRange && Att_Timer >= Att_CoolTime)
+                {
+                    Att_Timer = 0;
+                    nav.velocity = Vector3.zero;
+                    animator.SetTrigger("Attack_1");
+                }
+                else if (In_AttRange && Att_Timer >= 0.5 && Att_Timer < 1)
+                {
+
+                    UI_Manager.instance.alterHP(100);
+                    In_AttRange = false;
+                    Att_Timer = 1f;
+                }
+                else if (!In_AttRange && Att_Timer < 1)
+                {
+                    Att_Timer = 1f;
+                }
+            }
         }
-        else if(Hear)
+        else
         {
-            nav.speed = 5.5f;
-            nav.SetDestination(Hear_Position);
-
-            if (2 >= Vector3.Distance(transform.position, Hear_Position))
-            {
-                Hear = false;
-            }           
-        }
-        else if(!See_Player && !Hear)
-        {
-            nav.speed = 2.5f;
-            if (2>=Vector3.Distance(transform.position,DestPos[DestNum].transform.position))
-            {
-                DestNum = Random.Range(0,DestPos.Length);
-            }
-            else
-            {                
-                nav.SetDestination(DestPos[DestNum].transform.position);
-            }
-           
-
-        }
-
-
-
-        //공격하는 부분
-        //숨어있을땐 공격X
-        if (!Chara_Main_Move.isHide)
-        {
-            if (In_AttRange && Att_Timer >= Att_CoolTime)
-            {
-                Att_Timer = 0;
-                nav.velocity = Vector3.zero;
-                animator.SetTrigger("Attack_1");
-            }
-            else if (In_AttRange && Att_Timer >= 0.5 && Att_Timer < 1)
-            {
-                
-                UI_Manager.instance.alterHP(100);
-                In_AttRange = false;
-                Att_Timer = 1f;
-            }
-            else if (!In_AttRange && Att_Timer < 1)
-            {
-                Att_Timer = 1f;
-            }
+            animator.SetTrigger("Sleep");
         }
 
        
@@ -161,6 +168,10 @@ public class Crab_Act : MonoBehaviour
     public void Cancle_Att()
     {
         In_AttRange = false;
+    }
+    public void WakeUp()
+    {
+        Sleep = false;
     }
 
     public void HearSound(int SoundType,Vector3 Pos)
