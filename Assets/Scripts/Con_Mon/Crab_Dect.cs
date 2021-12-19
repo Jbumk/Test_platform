@@ -18,7 +18,7 @@ public class Crab_Dect : MonoBehaviour
     }
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("Player")&& !isBGMON)
+        if (col.gameObject.CompareTag("Player")&& !isBGMON && !Crab_Act.instance.isSleep())
         {
             BGM.volume = 0.5f;
             isBGMON = true;

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3845046666949333717}
   m_Layer: 0
   m_Name: BookShelf
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

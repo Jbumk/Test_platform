@@ -97,7 +97,7 @@ public class Interec : MonoBehaviour
           
             if (Physics.Raycast(RayPoint.transform.position, RayVec,out hit,Vector3.Distance(RayPoint.transform.position,col.transform.position),laymask))
             {            
-                if (!hit.collider.gameObject.CompareTag("Ground"))
+                if (!hit.collider.gameObject.CompareTag("Ground")&&!hit.collider.gameObject.CompareTag("Wall"))
                 {                      
                     if (GrabObj == null && Input.GetKey(KeyCode.E)&& !Chara_Main_Move.OnDash)
                     {                        

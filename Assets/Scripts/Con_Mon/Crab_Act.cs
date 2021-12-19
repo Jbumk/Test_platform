@@ -151,6 +151,7 @@ public class Crab_Act : MonoBehaviour
     }
 
 
+    //-----------조견 변경 부분
     public void SeePlayer()
     {
         See_Player = true;
@@ -172,6 +173,11 @@ public class Crab_Act : MonoBehaviour
     public void WakeUp()
     {
         Sleep = false;
+    }
+    //------------------------------
+    public bool isSleep()
+    {
+        return Sleep;
     }
 
     public void HearSound(int SoundType,Vector3 Pos)

@@ -170,7 +170,7 @@ public class Chara_Main_Move : MonoBehaviour
     private void Jump()
     {                 
        //OnGround = false;
-       //isJump = true;
+       isJump = true;
        rigid.AddForce(Vector3.up * 6f, ForceMode.Impulse);
         
     }
