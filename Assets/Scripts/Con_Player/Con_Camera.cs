@@ -76,12 +76,11 @@ public class Con_Camera : MonoBehaviour
                 FirCamQuat = FirCam.transform.rotation;
                 FirCamQuat.x = 0f;
                 FirCamQuat.z = 0f;
-                Player.transform.rotation = FirCamQuat;
+                Player.transform.rotation = FirCamQuat;                
             }
             else
-            {
+            {                
                 Con_ThrCam();
-
             }
         }
         
@@ -97,6 +96,10 @@ public class Con_Camera : MonoBehaviour
         {
             if (FirCamOn == true)
             {
+                //1인칭 >> 3인칭 변경
+                ThrCamRot = FirCamRot;
+
+
                 FirCamOn = false;
                 FirCam.SetActive(false);
                 ThrCam.SetActive(true);                
@@ -106,11 +109,13 @@ public class Con_Camera : MonoBehaviour
             }
             else
             {
+                //3인칭 >> 1인칭 변경
+                FirCamRot = ThrCamRot;
+
                 FirCamOn = true;
                 FirCam.SetActive(true);
                 ThrCam.SetActive(false);                
-                body.SetActive(false);
-                FirCam.transform.rotation = ThrCamPos.transform.rotation;
+                body.SetActive(false);                
                 Spot.SetActive(true);
 
             }
@@ -123,8 +128,6 @@ public class Con_Camera : MonoBehaviour
     private void Con_FirCam()
     {
         Player.transform.Rotate(0f, Input.GetAxis("Mouse X") * Mouse_Speed, 0f, Space.Self);
-
-
         FirCamRot.x += -Input.GetAxis("Mouse Y") * Mouse_Speed;
         FirCamRot.x = Mathf.Clamp(FirCamRot.x, -60f, 60f);
         FirCamRot.y += Input.GetAxis("Mouse X") * Mouse_Speed;
@@ -138,27 +141,13 @@ public class Con_Camera : MonoBehaviour
         ThrCamRot.x = Mathf.Clamp(ThrCamRot.x, -60f, 40f);
         ThrCamRot.y += Input.GetAxis("Mouse X") * Mouse_Speed;
 
-        ThrCamPos.transform.rotation = Quaternion.Euler(ThrCamRot);
-        //Debug.DrawRay(ThrCamOriginVec.transform.position, ThrCamOriginVec.transform.forward * ThrCam_Dist,Color.red);
 
+        ThrCamPos.transform.rotation = Quaternion.Euler(ThrCamRot);
+       
 
         //벽과 만났을시 앞으로 당겨옴
         if(Physics.Raycast(RayPoint.transform.position, Dir, out hit,ThrCam_Dist,laymask))
         {
-            /* if (hit.transform.CompareTag("Player"))
-             {
-                 ThrCam.transform.position = ThrCamOriginVec.transform.position;              
-
-             }
-             else if(hit.transform.CompareTag("CanGrab"))
-             {
-                 ThrCam.transform.position = ThrCamOriginVec.transform.position;
-                 Debug.Log("GrabThing");
-             }           
-             else
-             {
-
-             }*/
             Distance = Vector3.Distance(ThrCam.transform.position, Player.transform.position);
             ThrCam.transform.position = hit.point;            
             ThrCam.transform.position += ThrCam.transform.forward*(Distance*0.5f);

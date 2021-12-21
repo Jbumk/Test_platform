@@ -19,8 +19,7 @@ public class Crab_Act : MonoBehaviour
 
     private static Crab_Act m_inst;
 
-    public GameObject[] DestPos;
-    public int DestNum = 0;
+
 
     public Animator animator;
     public GameObject Player;
@@ -41,6 +40,11 @@ public class Crab_Act : MonoBehaviour
     public bool Sleep = true;
 
     private Vector3 Hear_Position;// 들은곳의 위치
+    
+
+    //평시 이동
+    public WayPointArcv[] WayPointArcv;
+    private Vector3 WayPoint;
 
     void Start()
     {
@@ -55,17 +59,7 @@ public class Crab_Act : MonoBehaviour
         Timer += Time.deltaTime;
         Att_Timer += Time.deltaTime;
 
-        /*
-        if (ResetManager.ObjReset)
-        {
-          
-            Hear = false;
-            See_Player = false;
-            nav.SetDestination(DestPos[DestNum].transform.position);
-        }*/
-
         
-
         //깨어있을때의 행동
         if (!Sleep)
         {
@@ -85,6 +79,8 @@ public class Crab_Act : MonoBehaviour
                 Timer = 0;
             }
 
+
+
             //추적, 수색 부분
             if (See_Player)
             {
@@ -103,14 +99,20 @@ public class Crab_Act : MonoBehaviour
             }
             else if (!See_Player && !Hear)
             {
-                nav.speed = 2.5f;
-                if (2 >= Vector3.Distance(transform.position, DestPos[DestNum].transform.position))
+                nav.speed = 4f;
+                if (2 >= Vector3.Distance(transform.position, WayPoint))
                 {
-                    DestNum = Random.Range(0, DestPos.Length);
+                    Debug.Log("WayPoiht 받아옴");
+                    GetWayPoint();
+                }else if (WayPoint == Vector3.zero)
+                {
+                    Debug.Log("비어있는 WayPoiht 받아옴");
+                    GetWayPoint();
                 }
                 else
                 {
-                    nav.SetDestination(DestPos[DestNum].transform.position);
+                  
+                    nav.SetDestination(WayPoint);
                 }
 
             }
@@ -201,6 +203,18 @@ public class Crab_Act : MonoBehaviour
                 Hear_Position = Pos;
                 Hear = true;               
                 break;
+        }
+    }
+
+
+    private void GetWayPoint()
+    {
+        for(int i = 0; i < WayPointArcv.Length; i++)
+        {
+            if (WayPointArcv[i].GetExistPlayer())
+            {
+                WayPoint=WayPointArcv[i].GetWayPoint();
+            }
         }
     }
 

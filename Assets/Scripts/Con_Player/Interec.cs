@@ -101,24 +101,7 @@ public class Interec : MonoBehaviour
 
                     }
                                                          
-                    //물건놓기
-                    if (GrabObj != null && InterecTimer >= InterecCoolTime)
-                    {
-
-                        if (Input.GetKey(KeyCode.E))
-                        {
-                            GrabSound.Play();
-                            GrabObj.transform.SetParent(null);
-                            GrabObj.transform.localScale = GrabScale;
-                            GrabObjRigid.useGravity = true;
-                            GrabObj = null;
-                            GrabObjCol = null;
-                            GrabObjRigid = null;
-                            InterecTimer = 0;
-                        }
-
-
-                    }
+                   
 
 
                     //문열기
@@ -200,7 +183,8 @@ public class Interec : MonoBehaviour
                         }
                     }
                 }
-            }          
+            }
+           
         }
         //--------------------1인칭 상호작용-------------------------------------------------
         
@@ -277,24 +261,7 @@ public class Interec : MonoBehaviour
 
             }
 
-            //물건 놓기
-            if (GrabObj != null && InterecTimer >= InterecCoolTime)
-            {
-
-                if (Input.GetKey(KeyCode.E))
-                {
-                    GrabSound.Play();
-                    GrabObj.transform.SetParent(null);
-                    GrabObj.transform.localScale = GrabScale;
-                    GrabObjRigid.useGravity = true;
-                    GrabObj = null;
-                    GrabObjCol = null;
-                    GrabObjRigid = null;
-                    InterecTimer = 0;
-                }
-
-
-            }
+           
 
 
             //문열기
@@ -377,6 +344,26 @@ public class Interec : MonoBehaviour
             }
         }
         //-----------------------3인칭 상호작용=====================================
+
+
+        //물건 놓기 공통 상호작용
+        if (GrabObj != null && InterecTimer >= InterecCoolTime)
+        {
+
+            if (Input.GetKey(KeyCode.E))
+            {
+                GrabSound.Play();
+                GrabObj.transform.SetParent(null);
+                GrabObj.transform.localScale = GrabScale;
+                GrabObjRigid.useGravity = true;
+                GrabObj = null;
+                GrabObjCol = null;
+                GrabObjRigid = null;
+                InterecTimer = 0;
+            }
+
+
+        }
     }
 
     private void OnTriggerExit(Collider col)

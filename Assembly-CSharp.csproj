@@ -138,6 +138,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\Con_Player\UI_Manager.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Door\UnActiveDoor.cs" />
+    <Compile Include="Assets\Scripts\Con_Mon\WakeUpZone.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Door\OpenDoorSenser.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\LightFade.cs" />
@@ -149,7 +150,7 @@
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Con_Obj\Regene_Cube.cs" />
     <Compile Include="Assets\Prefabs\Monter\LB3D\CrabMonster\LB3DGameManager.cs" />
-    <Compile Include="Assets\Scripts\Con_Mon\WakeUpZone.cs" />
+    <Compile Include="Assets\Scripts\Con_Mon\WayPointArcv.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
