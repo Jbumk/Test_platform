@@ -110,13 +110,13 @@ public class Chara_Main_Move : MonoBehaviour
                 }
 
 
-                //R키를 눌러 리셋
-                if (Input.GetKeyDown(KeyCode.R))
+                //R키를 눌러 리셋  == 임시로제거
+                /*if (Input.GetKeyDown(KeyCode.R))
                 {
                     ResetManager.ObjReset = true;
                     ResetManager.BtnReset = true;
                     Revive();
-                }
+                }*/
 
 
 

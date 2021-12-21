@@ -10,6 +10,8 @@ public class Interec : MonoBehaviour
     private OpenDoor Door=null;
     private Hid_Locker Locker = null;
 
+ 
+
     public GameObject FirCam;
     public GameObject ThrCam;
     public GameObject Player;
@@ -25,6 +27,7 @@ public class Interec : MonoBehaviour
     //사이에 방해물체 있는지 감지
     public GameObject RayPoint;//레이저 발사할 위치
     private RaycastHit hit;
+    private RaycastHit hit2;
     Vector3 RayVec;  
     int laymask = ~((1 << 9));
 
@@ -52,9 +55,155 @@ public class Interec : MonoBehaviour
                 ThrowObj();
             }
         }
-      
+
+   
+
+        //--------------1인칭에서의 상호작용-------------------------------------------
+        if (Con_Camera.FirCamOn)
+        {
+            if (Physics.Raycast(RayPoint.transform.position, FirCam.transform.forward, out hit2, 2f, laymask))
+            {
+                if (hit2.collider.gameObject != null)
+                {                   
+
+                    //물건집기
+                    if (hit2.collider.gameObject.CompareTag("CanGrab") && InterecTimer >= InterecCoolTime)
+                    {
+                        RayVec = (hit2.collider.gameObject.transform.position - RayPoint.transform.position).normalized;
+
+                        if (Physics.Raycast(RayPoint.transform.position, RayVec, out hit, Vector3.Distance(RayPoint.transform.position, hit2.collider.transform.position), laymask))
+                        {
+                            if (!hit.collider.gameObject.CompareTag("Ground") && !hit.collider.gameObject.CompareTag("Wall"))
+                            {
+                                if (GrabObj == null && Input.GetKey(KeyCode.E) && !Chara_Main_Move.OnDash)
+                                {
+                                    GrabScale = hit2.collider.transform.localScale;
+                                    GrabSound.Play();
+                                    GrabObj = hit2.collider.gameObject;
+                                    GrabObjRigid = GrabObj.GetComponent<Rigidbody>();
+                                    GrabObjCol = GrabObj.GetComponent<Collider>();
+                                    GrabObjRigid.velocity = Vector3.zero;
+                                    GrabObjRigid.angularVelocity = Vector3.zero;
+                                    GrabObj.transform.SetParent(transform);
+                                    // GrabObj.transform.localScale = GrabScale;
+                                    GrabObj.transform.position = transform.position;
 
 
+                                    GrabObjRigid.useGravity = false;
+                                    InterecTimer = 0;
+
+                                }
+                            }
+
+
+                        }
+
+
+                    }
+                                                         
+                    //물건놓기
+                    if (GrabObj != null && InterecTimer >= InterecCoolTime)
+                    {
+
+                        if (Input.GetKey(KeyCode.E))
+                        {
+                            GrabSound.Play();
+                            GrabObj.transform.SetParent(null);
+                            GrabObj.transform.localScale = GrabScale;
+                            GrabObjRigid.useGravity = true;
+                            GrabObj = null;
+                            GrabObjCol = null;
+                            GrabObjRigid = null;
+                            InterecTimer = 0;
+                        }
+
+
+                    }
+
+
+                    //문열기
+                    if (hit2.collider.gameObject.CompareTag("Hinge") && GrabObj == null && InterecTimer >= InterecCoolTime)
+                    {
+                        if (Input.GetKey(KeyCode.E))
+                        {
+                            Door = hit2.collider.gameObject.GetComponent<OpenDoor>();
+                            //열려있는 문
+                            if (Door.LockChk() == 0)
+                            {
+                                Door.Doing(0);
+
+                            }
+                            //잠긴 문
+                            else
+                            {
+                                //잠긴 문의 열쇠를 가지고 있는지 체크Door.LockChk는 해당문의 LockType(잠겨있는 값)을 반환한다
+                                //추후 간편하게 수정하기
+                                Door.UnLock((UI_Manager.instance.KeyChk(Door.LockChk())));
+
+
+
+                            }
+
+                            InterecTimer = 0;
+                        }
+                    }
+
+
+
+                    //키 획득
+                    if (hit2.collider.gameObject.CompareTag("Key") && GrabObj == null && InterecTimer >= InterecCoolTime)
+                    {
+                        if (Input.GetKey(KeyCode.E))
+                        {
+                            switch (hit2.collider.gameObject.name)
+                            {
+                                case "Black":
+                                    UI_Manager.instance.GetKey(1);
+                                    break;
+                                case "Blue":
+                                    UI_Manager.instance.GetKey(2);
+                                    break;
+                                case "Green":
+                                    UI_Manager.instance.GetKey(3);
+                                    break;
+                                case "Red":
+                                    UI_Manager.instance.GetKey(4);
+                                    break;
+                            }
+                            hit2.collider.gameObject.SetActive(false);
+                            InterecTimer = 0;
+                        }
+                    }
+
+                    //Locker 안에 숨기
+                    if (hit2.collider.gameObject.CompareTag("HideLocker") && GrabObj == null && InterecTimer >= InterecCoolTime)
+                    {
+                        if (Input.GetKey(KeyCode.E))
+                        {
+                            Locker = hit2.collider.gameObject.GetComponent<Hid_Locker>();
+                            if (Chara_Main_Move.isHide)
+                            {
+                                //나오기
+                                Chara_Main_Move.isHide = false;
+                                Locker.Expose();
+                            }
+                            else
+                            {
+                                //숨기
+                                if (!Crab_Act.instance.See_Player)
+                                {
+                                    Chara_Main_Move.isHide = true;
+                                }
+                                Locker.Hide(Player);
+                            }
+                            InterecTimer = 0;
+                        }
+                    }
+                }
+            }          
+        }
+        //--------------------1인칭 상호작용-------------------------------------------------
+        
     }
 
     private void ThrowObj()
@@ -90,154 +239,161 @@ public class Interec : MonoBehaviour
 
     private void OnTriggerStay(Collider col)
     {
-        //물건 집기
-        if (col.gameObject.CompareTag("CanGrab") && InterecTimer >= InterecCoolTime)
+        //-----------------------3인칭 상호작용=====================================
+        if (!Con_Camera.FirCamOn)
         {
-            RayVec = (col.transform.position - RayPoint.transform.position).normalized;
-          
-            if (Physics.Raycast(RayPoint.transform.position, RayVec,out hit,Vector3.Distance(RayPoint.transform.position,col.transform.position),laymask))
-            {            
-                if (!hit.collider.gameObject.CompareTag("Ground")&&!hit.collider.gameObject.CompareTag("Wall"))
-                {                      
-                    if (GrabObj == null && Input.GetKey(KeyCode.E)&& !Chara_Main_Move.OnDash)
-                    {                        
-                        GrabScale = col.transform.localScale;
-                        GrabSound.Play();
-                        GrabObj = col.gameObject;                        
-                        GrabObjRigid = GrabObj.GetComponent<Rigidbody>();
-                        GrabObjCol = GrabObj.GetComponent<Collider>();
-                        GrabObjRigid.velocity = Vector3.zero;
-                        GrabObjRigid.angularVelocity = Vector3.zero;
-                        GrabObj.transform.SetParent(transform);
-                       // GrabObj.transform.localScale = GrabScale;
-                        GrabObj.transform.position = transform.position;
-                        
-                        
-                        GrabObjRigid.useGravity = false;                       
-                        InterecTimer = 0;
-                        
-                    }
-                 }
-
-
-            }
-           
-
-        }
-
-        //물건 놓기
-        if (GrabObj != null && InterecTimer >= InterecCoolTime)
-        {
-          
-            if (Input.GetKey(KeyCode.E))
+            //물건 집기
+            if (col.gameObject.CompareTag("CanGrab") && InterecTimer >= InterecCoolTime)
             {
-                GrabSound.Play();
-                GrabObj.transform.SetParent(null);
-                GrabObj.transform.localScale = GrabScale;        
-                GrabObjRigid.useGravity = true;       
-                GrabObj = null;
-                GrabObjCol = null;
-                GrabObjRigid = null;
-                InterecTimer = 0;
-            }
+                RayVec = (col.transform.position - RayPoint.transform.position).normalized;
 
-            
-        }
-
-
-        //문열기
-        if (col.gameObject.CompareTag("Hinge") && GrabObj==null && InterecTimer >= InterecCoolTime)
-        {
-            if (Input.GetKey(KeyCode.E))
-            {                
-                Door = col.gameObject.GetComponent<OpenDoor>();
-                //열려있는 문
-                if (Door.LockChk() == 0)
+                if (Physics.Raycast(RayPoint.transform.position, RayVec, out hit, Vector3.Distance(RayPoint.transform.position, col.transform.position), laymask))
                 {
-                    Door.Doing(0);
-
-                }
-                //잠긴 문
-                else
-                {
-                    //잠긴 문의 열쇠를 가지고 있는지 체크Door.LockChk는 해당문의 LockType(잠겨있는 값)을 반환한다
-                    //추후 간편하게 수정하기
-                    Door.UnLock((UI_Manager.instance.KeyChk(Door.LockChk())));
-                    
-
-                    
-                }
-
-                InterecTimer = 0;
-            }
-        }
-
-
-        //키 획득
-        if (col.gameObject.CompareTag("Key") && GrabObj == null && InterecTimer >= InterecCoolTime)
-        {
-            if (Input.GetKey(KeyCode.E))
-            {
-                switch (col.gameObject.name){
-                    case "Black":
-                        UI_Manager.instance.GetKey(1);                        
-                        break;
-                    case "Blue":
-                        UI_Manager.instance.GetKey(2);
-                        break;
-                    case "Green":
-                        UI_Manager.instance.GetKey(3);
-                        break;
-                    case "Red":
-                        UI_Manager.instance.GetKey(4);
-                        break;
-                }
-                col.gameObject.SetActive(false);
-                InterecTimer = 0;
-            }
-        }
-
-
-       //Locker 안에 숨기
-       if (col.gameObject.CompareTag("HideLocker")&& GrabObj == null && InterecTimer >= InterecCoolTime)
-        {
-            if (Input.GetKey(KeyCode.E))
-            {
-                Locker = col.gameObject.GetComponent<Hid_Locker>();
-                if (Chara_Main_Move.isHide)
-                {
-                    //나오기
-                    Chara_Main_Move.isHide = false;
-                    Locker.Expose();
-                }
-                else
-                {
-                    //숨기
-                    if (!Crab_Act.instance.See_Player)
+                    if (!hit.collider.gameObject.CompareTag("Ground") && !hit.collider.gameObject.CompareTag("Wall"))
                     {
-                        Chara_Main_Move.isHide = true;
+                        if (GrabObj == null && Input.GetKey(KeyCode.E) && !Chara_Main_Move.OnDash)
+                        {
+                            GrabScale = col.transform.localScale;
+                            GrabSound.Play();
+                            GrabObj = col.gameObject;
+                            GrabObjRigid = GrabObj.GetComponent<Rigidbody>();
+                            GrabObjCol = GrabObj.GetComponent<Collider>();
+                            GrabObjRigid.velocity = Vector3.zero;
+                            GrabObjRigid.angularVelocity = Vector3.zero;
+                            GrabObj.transform.SetParent(transform);
+                            // GrabObj.transform.localScale = GrabScale;
+                            GrabObj.transform.position = transform.position;
+
+
+                            GrabObjRigid.useGravity = false;
+                            InterecTimer = 0;
+
+                        }
                     }
-                    Locker.Hide(Player);
+
+
                 }
-                InterecTimer = 0;
+
+
+            }
+
+            //물건 놓기
+            if (GrabObj != null && InterecTimer >= InterecCoolTime)
+            {
+
+                if (Input.GetKey(KeyCode.E))
+                {
+                    GrabSound.Play();
+                    GrabObj.transform.SetParent(null);
+                    GrabObj.transform.localScale = GrabScale;
+                    GrabObjRigid.useGravity = true;
+                    GrabObj = null;
+                    GrabObjCol = null;
+                    GrabObjRigid = null;
+                    InterecTimer = 0;
+                }
+
+
+            }
+
+
+            //문열기
+            if (col.gameObject.CompareTag("Hinge") && GrabObj == null && InterecTimer >= InterecCoolTime)
+            {
+                if (Input.GetKey(KeyCode.E))
+                {
+                    Door = col.gameObject.GetComponent<OpenDoor>();
+                    //열려있는 문
+                    if (Door.LockChk() == 0)
+                    {
+                        Door.Doing(0);
+
+                    }
+                    //잠긴 문
+                    else
+                    {
+                        //잠긴 문의 열쇠를 가지고 있는지 체크Door.LockChk는 해당문의 LockType(잠겨있는 값)을 반환한다
+                        //추후 간편하게 수정하기
+                        Door.UnLock((UI_Manager.instance.KeyChk(Door.LockChk())));
+
+
+
+                    }
+
+                    InterecTimer = 0;
+                }
+            }
+
+
+            //키 획득
+            if (col.gameObject.CompareTag("Key") && GrabObj == null && InterecTimer >= InterecCoolTime)
+            {
+                if (Input.GetKey(KeyCode.E))
+                {
+                    switch (col.gameObject.name)
+                    {
+                        case "Black":
+                            UI_Manager.instance.GetKey(1);
+                            break;
+                        case "Blue":
+                            UI_Manager.instance.GetKey(2);
+                            break;
+                        case "Green":
+                            UI_Manager.instance.GetKey(3);
+                            break;
+                        case "Red":
+                            UI_Manager.instance.GetKey(4);
+                            break;
+                    }
+                    col.gameObject.SetActive(false);
+                    InterecTimer = 0;
+                }
+            }
+
+
+            //Locker 안에 숨기
+            if (col.gameObject.CompareTag("HideLocker") && GrabObj == null && InterecTimer >= InterecCoolTime)
+            {
+                if (Input.GetKey(KeyCode.E))
+                {
+                    Locker = col.gameObject.GetComponent<Hid_Locker>();
+                    if (Chara_Main_Move.isHide)
+                    {
+                        //나오기
+                        Chara_Main_Move.isHide = false;
+                        Locker.Expose();
+                    }
+                    else
+                    {
+                        //숨기
+                        if (!Crab_Act.instance.See_Player)
+                        {
+                            Chara_Main_Move.isHide = true;
+                        }
+                        Locker.Hide(Player);
+                    }
+                    InterecTimer = 0;
+                }
             }
         }
+        //-----------------------3인칭 상호작용=====================================
     }
 
     private void OnTriggerExit(Collider col)
     {
         //물건 놓치기
-        if (GrabObj != null && col.gameObject.CompareTag("CanGrab"))
+        if (GrabObj != null && GrabObj == col.gameObject)
         {
             GrabSound.Play();
             GrabObj.transform.SetParent(null);
-            GrabObj.transform.localScale = GrabScale;     
+            GrabObj.transform.localScale = GrabScale;
             GrabObjRigid.useGravity = true;
             GrabObj = null;
             GrabObjCol = null;
             GrabObjRigid = null;
             InterecTimer = 0;
-        }
+        }    
+        
         
     }
 

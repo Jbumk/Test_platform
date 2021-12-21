@@ -12,6 +12,7 @@ public class Con_Camera : MonoBehaviour
     public GameObject Player;
     public GameObject body;
     public GameObject RayPoint;
+    public GameObject Spot; //화면 중앙 표시점
 
     private Vector3 Dir;
     private float Mouse_Speed = 2f;
@@ -100,6 +101,7 @@ public class Con_Camera : MonoBehaviour
                 FirCam.SetActive(false);
                 ThrCam.SetActive(true);                
                 body.SetActive(true);
+                Spot.SetActive(false);
 
             }
             else
@@ -109,7 +111,7 @@ public class Con_Camera : MonoBehaviour
                 ThrCam.SetActive(false);                
                 body.SetActive(false);
                 FirCam.transform.rotation = ThrCamPos.transform.rotation;
-               
+                Spot.SetActive(true);
 
             }
             ChangeTimer = 0;
@@ -124,7 +126,7 @@ public class Con_Camera : MonoBehaviour
 
 
         FirCamRot.x += -Input.GetAxis("Mouse Y") * Mouse_Speed;
-        FirCamRot.x = Mathf.Clamp(FirCamRot.x, -60f, 40f);
+        FirCamRot.x = Mathf.Clamp(FirCamRot.x, -60f, 60f);
         FirCamRot.y += Input.GetAxis("Mouse X") * Mouse_Speed;
 
         FirCam.transform.rotation = Quaternion.Euler(FirCamRot);
